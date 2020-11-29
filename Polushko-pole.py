@@ -19,6 +19,7 @@ YELLOW = (255, 255,0)
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 screen.fill(WHITE)
+clock = pygame.time.Clock()
 
 class Window(pygame.sprite.Sprite):
     def __init__(self, size=10):
@@ -35,6 +36,9 @@ class Window(pygame.sprite.Sprite):
             pygame.draw.line(self.image,BLACK, (i*CELL_SIZE,0) , (i*CELL_SIZE,HEIGHT))
             pygame.draw.line(self.image,BLACK, (0,i*CELL_SIZE) ,(WIDTH ,i*CELL_SIZE))
 
+        self.draw_field()
+
+    def draw_field(self):
         for i in range(Field_size+2):
             for j in range(Field_size+2):
                 self.draw_chip((i,j))
@@ -89,12 +93,10 @@ class Window(pygame.sprite.Sprite):
             self.field.walk_the_line(coords1)
             self.field.walk_the_line(coords2)
 
-            for i in range(Field_size + 2):
-                for j in range(Field_size + 2):
-                    self.draw_chip((i, j))
-
-            
-
+            while self.field.check():
+                self.field.update()
+                self.draw_field()
+                clock.tick(2)
         else:
             self.touch_square=self.search_the_square(event)
             self.color = WHITE

@@ -55,16 +55,31 @@ class Field:
                     self.massive[i][j]=Ball(i*self.w-self.w//2,j*self.h-self.h//2,self.h//2,Colors[t])
 
     def update(self):
-
-        pass
+        flag=True
+        while flag:
+            flag=False
+            for i in range(self.n,1,-1):
+                for j in range(1,self.n+1):
+                    if not self.massive[i][j+1].live and self.massive[i][j].live:
+                        self.massive[i][j+1].live=True
+                        self.massive[i][j].live=False
+                        self.massive[i][j].color,self.massive[i][j+1].color = \
+                            self.massive[i][j+1].color,self.massive[i][j].color
+                        flag=True
+        self.create_balls()
 
     def check(self):
         for i in range(1,self.n+1):
             for j in range(1,self.n+1):
                 if self.massive[i][j].live:
-                    self.walk_the_line(i,j)
-        self.update()
+                    self.walk_the_line((i,j))
 
+        for i in range(1, self.n + 1):
+            for j in range(1, self.n + 1):
+                if not self.massive[i][j].live:
+                    return True
+
+        return False
 
     def walk_the_line(self,coords):
         x0=coords[0]
