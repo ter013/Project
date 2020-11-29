@@ -2,6 +2,9 @@ import random
 import os
 import random
 import pygame
+from objects import *
+
+from Project.objects import Field
 
 Field_size = 10
 CELL_SIZE = 50
@@ -18,16 +21,29 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 screen.fill(WHITE)
 
 class Window(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, size=10):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface((WIDTH, HEIGHT))
         self.image.fill(WHITE)
         self.rect = self.image.get_rect()
         self.touch_number=0
         self.touch_square=(-1,-1)
+        self.size=size+2
+        self.field=Field(size,CELL_SIZE,CELL_SIZE)
+
         for i in range(Field_size):
             pygame.draw.line(self.image,BLACK, (i*CELL_SIZE,0) , (i*CELL_SIZE,HEIGHT))
             pygame.draw.line(self.image,BLACK, (0,i*CELL_SIZE) ,(WIDTH ,i*CELL_SIZE))
+
+        for i in range(Field_size+2):
+            for j in range(Field_size+2):
+                self.draw_chip((i,j))
+
+    def draw_chip(self, coords):
+
+        self.field.massive[coords[0]][coords[1]].draw(self.image)
+
+
 
     def fill_square(self,coords,color):
         i=coords[0]
@@ -45,7 +61,13 @@ class Window(pygame.sprite.Sprite):
 
     def swap(self,coords1,coords2):
         #махнуть местами фишки
-        pass
+
+        self.field.massive[coords1[0]][coords1[1]].color,self.field.massive[coords2[0]][coords2[1]].color = \
+            self.field.massive[coords2[0]][coords2[1]].color,self.field.massive[coords1[0]][coords1[1]].color
+
+        self.draw_chip(coords1)
+        self.draw_chip(coords2)
+
 
     def update (self, event=0):
         if event==0:
@@ -54,13 +76,24 @@ class Window(pygame.sprite.Sprite):
 
         if self.touch_number==2:
             self.touch_number=0
-            #проверка, что квадратик соседний, которой еще нет....
 
             coords1=self.touch_square
             coords2=self.search_the_square(event)
-            self.swap(coords1,coords2)
+            self.fill_square(coords1, WHITE)
 
-            self.fill_square(coords1,WHITE)
+            if abs(coords1[0]-coords2[0])+abs(coords1[1]-coords2[1])<=1:
+                self.swap(coords1, coords2)
+            else:
+                self.draw_chip(coords1)
+
+            self.field.walk_the_line(coords1)
+            self.field.walk_the_line(coords2)
+
+            for i in range(Field_size + 2):
+                for j in range(Field_size + 2):
+                    self.draw_chip((i, j))
+
+            
 
         else:
             self.touch_square=self.search_the_square(event)
@@ -68,7 +101,7 @@ class Window(pygame.sprite.Sprite):
             flag=(event.type == pygame.MOUSEBUTTONUP)
             if flag:
                 flag=False
-                self.fill_square(self.touch_square,YELLOW)
+                self.fill_square(self.touch_square,BLACK)
 
         for i in range(Field_size):
             pygame.draw.line(self.image,BLACK, (i*CELL_SIZE,0) , (i*CELL_SIZE,HEIGHT))
