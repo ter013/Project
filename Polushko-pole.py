@@ -1,10 +1,12 @@
 import random
-import os
+from os import path
 import random
 import pygame
 from objects import *
 
-from Project.objects import Field
+snd_dir = path.join(path.dirname(__file__),'snd')
+
+from objects import Field
 
 Field_size = 10
 CELL_SIZE = 50
@@ -17,6 +19,7 @@ YELLOW = (255, 255,0)
 
 
 pygame.init()
+pygame.mixer.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 screen.fill(WHITE)
 clock = pygame.time.Clock()
@@ -68,7 +71,7 @@ class Window(pygame.sprite.Sprite):
 
         self.field.massive[coords1[0]][coords1[1]].color,self.field.massive[coords2[0]][coords2[1]].color = \
             self.field.massive[coords2[0]][coords2[1]].color,self.field.massive[coords1[0]][coords1[1]].color
-
+        move_sound.play()
         self.draw_chip(coords1)
         self.draw_chip(coords2)
 
@@ -109,7 +112,9 @@ class Window(pygame.sprite.Sprite):
             pygame.draw.line(self.image,BLACK, (i*CELL_SIZE,0) , (i*CELL_SIZE,HEIGHT))
             pygame.draw.line(self.image,BLACK, (0,i*CELL_SIZE) ,(WIDTH ,i*CELL_SIZE))
 
-
+move_sound = pygame.mixer.Sound(path.join(snd_dir, 'blip.wav'))
+pygame.mixer.music.load(path.join(snd_dir, 'regression_cyclone.ogg'))
+pygame.mixer.music.set_volume(0.4)
 
 all_sprites = pygame.sprite.Group()
 s = Window()
@@ -118,9 +123,10 @@ all_sprites.add(s)
 
 
 
-
+pygame.mixer.music.play(loops = -1)
 running = True
 while running:
+    
        
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
