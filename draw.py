@@ -33,6 +33,7 @@ GRAY = (169, 169,169)
 
 GREEN = (0, 255, 0)
 DARKGREEN = (0, 100, 0)
+LIMEGREEN = (50, 205, 50)
 
 CADETBLUE = (95, 158, 160)
 
@@ -939,11 +940,11 @@ def orange_stone(a, surf, x, y):
                      int(y + 0.87 * a * math.cos(u * i))))
 
     pygame.draw.polygon(surf, GREEN, list)
-    pygame.draw.polygon(surf, DARKGREEN, [list[0], list[5], [int(x), int(y + 0.44 * a)]])
-    pygame.draw.polygon(surf, DARKGREEN, [list[2], list[3], [int(x), int(y - 0.44 * a)]])
-    pygame.draw.line(surf, DARKGREEN, list[4], list[2], 2)
-    pygame.draw.line(surf, DARKGREEN, list[0], list[3], 2)
-    pygame.draw.line(surf, DARKGREEN, list[1], list[5], 2)
+    pygame.draw.polygon(surf, LIMEGREEN, [list[0], list[5], [int(x), int(y + 0.44 * a)]])
+    pygame.draw.polygon(surf, LIMEGREEN, [list[2], list[3], [int(x), int(y - 0.44 * a)]])
+    pygame.draw.line(surf, LIMEGREEN, list[4], list[2], 2)
+    pygame.draw.line(surf, LIMEGREEN, list[0], list[3], 2)
+    pygame.draw.line(surf, LIMEGREEN, list[1], list[5], 2)
 
 def gray_chip(a, surf, color, k, x, y):
     '''
@@ -1533,8 +1534,8 @@ orange_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 150, 150)
 purple_chip(100, screen, WHITE, 0.4, 100, 200)
 purple_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 150, 250)
 
-gray_chip(100, screen, WHITE, 0.4, 100, 400)
-gray_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 150, 450)
+#gray_chip(100, screen, WHITE, 0.4, 100, 400)
+#gray_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 150, 450)
 
 green_chip(100, screen, WHITE, 0.4, 200, 300)
 green_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 250, 350)
@@ -1542,16 +1543,25 @@ green_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 250, 350)
 draw_pole(4, 50, CADETBLUE, DIMGREY, 250, 100, 16)
 
 red_stone(20, screen, 400, 560)
-pygame.display.update()
+#pygame.display.update()
 clock = pygame.time.Clock()
 finished = False
 
 
 while not finished:
     clock.tick(FPS)
-
+    p = randint(1,3)
+    list_x = []
+    list_y = []
+    gray_chip(100, screen, WHITE, 0.4, 100, 400)
+    gray_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 150, 450)
+    for i in range(0, p, 1):
+        list_x.append(randint(- 12 + 150, 12 + 150))
+        list_y.append(randint(- 12 + 450, 12 + 450))
+    for i in range(0, p, 1):
+        pygame.draw.circle(screen, WHITE, (list_x[i], list_y[i]), 2)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             finished = True
-
+    pygame.display.update()
 pygame.quit()
