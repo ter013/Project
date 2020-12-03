@@ -1538,6 +1538,34 @@ def cross_animation(surf, x, y, a):
                           int(y + 0.7 * a * math.cos(math.pi * alpha[i] / 180 + 0.14))),
                          (int(x + 1.0 * a * math.sin(math.pi * alpha[i] / 180 - 0.02)),
                           int(y + 1.0 * a * math.cos(math.pi * alpha[i] / 180 - 0.02))))
+def draw_bonus_dynamite(surf, x, y, a):
+    '''
+    функция рисует бонус динамит
+    :param surf: поверхность отрисовки изображения
+    :param x: кооржината центра по оси x
+    :param y: координата центра по оси y
+    :param a: характерный размер
+    '''
+    #тело динамита
+    pygame.draw.circle(surf, TOMATO, (int(x - 0.2 * a), int(y + 0.4 * a)), int(0.1 * a))
+    pygame.draw.polygon(surf, TOMATO, [[int(x - 0.25 * a), int(y + 0.3 * a)],
+                                       [int(x + 0.4 * a), int(y + 0.06 * a)],
+                                       [int(x + 0.44 * a), int(y + 0.25 * a)],
+                                       [int(x - 0.19 * a), int(y + 0.50 * a)]])
+
+    pygame.draw.polygon(surf, DARKRED, [[int(x + 0.44 * a), int(y + 0.25 * a)],
+                                        [int(x - 0.19 * a), int(y + 0.50 * a)],
+                                        [int(x - 0.23 * a), int(y + 0.48 * a)],
+                                        [int(x + 0.44 * a), int(y + 0.21 * a)]])
+    pygame.draw.polygon(surf, ORANGE, [[int(x - 0.25 * a), int(y + 0.3 * a)],
+                                       [int(x + 0.4 * a), int(y + 0.06 * a)],
+                                       [int(x + 0.42 * a), int(y + 0.09 * a)],
+                                       [int(x - 0.29 * a), int(y + 0.36 * a)]])
+    pygame.draw.circle(surf, FIREBRICK, (int(x + 0.43 * a), int(y + 0.16 * a)), int(0.1 * a))
+    pygame.draw.circle(surf, TOMATO, (int(x + 0.43 * a), int(y + 0.16 * a)), int(0.1 * a), 2)
+    #обвивающая веревка
+    pygame.draw.arc(surf, SIENNA, (int(x - 0.8 * a), int(y - 0.8 * a), int(0.8 * a), int(1.8 * a)), -0.42, 0.63, 5)
+
 def almaz_animation(surf, x, y, a):
     """
     рисует анимацию бликов на драгоценном камне
@@ -1593,9 +1621,10 @@ finished = False
 while not finished:
     clock.tick(FPS)
     draw_pole(4, 50, CADETBLUE, DIMGREY, 250, 100, 16)
-    gray_chip(100, screen, WHITE, 0.4, 200, 400)
-    gray_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 250, 450)
-    almaz_animation(screen, 250, 450, 12)
+    gray_chip(100, screen, WHITE, 0.4, 250, 250)
+    gray_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 300, 400)
+    draw_bonus_dynamite(screen, 150, 150, 100)
+    almaz_animation(screen, 300, 400, 12)
     draw_bonus_cross(screen, 300, 240, 50)
     cross_animation(screen, 300, 240, 50)
     for event in pygame.event.get():
