@@ -56,11 +56,10 @@ def draw2(a, color, n, surface, k, alpha):
     pygame.draw.lines(surface, color, False, list, 3)
 
 
-def red_chip(a, surf, color, k, x, y):
+def red_chip(a, surf, k, x, y):
     '''
     функция рисует красную фишку с орнаментом
     :param a: размер ячейки
-    :param color: цвет основы ячейки
     :param surf: экран, куда отображается плоскость
     :param k: масштаб изображения внутри ячейкм
     :param x: положение ячейки на экране по оси x
@@ -68,7 +67,6 @@ def red_chip(a, surf, color, k, x, y):
     '''
 
     surface = pygame.Surface((a, a), pygame.SRCALPHA, 32)
-    surface.fill(color)
 
     draw1(a, RED, CRIMSON, 8, surface, k, 0)
 
@@ -159,7 +157,7 @@ def red_chip(a, surf, color, k, x, y):
 
     draw2(a, CRIMSON, 4, surface, k, 0)
 
-    surf.blit(surface, (x, y), special_flags=pygame.BLEND_RGBA_MIN)
+    surf.blit(surface, (x, y))
 def red_stone(a, surf, x, y):
     '''
     рисуем камень в красной фишке
@@ -192,11 +190,10 @@ def red_stone(a, surf, x, y):
 
 
 
-def purple_chip(a, surf, color, k, x, y):
+def purple_chip(a, surf, k, x, y):
     '''
     функция рисует фиолетовую фишку с орнаментом
     :param a: размер ячейки
-    :param color: цвет основы ячейки
     :param surf: экран, куда отображается плоскость
     :param k: масштаб изображения внутри ячейкм
     :param x: положение ячейки на экране по оси x
@@ -204,7 +201,6 @@ def purple_chip(a, surf, color, k, x, y):
     '''
 
     surface = pygame.Surface((a, a), pygame.SRCALPHA, 32)
-    surface.fill(color)
 
     draw1(a, PURPLE, INDIGO, 8, surface, k, -math.pi/8)
 
@@ -353,7 +349,7 @@ def purple_chip(a, surf, color, k, x, y):
     draw2(a, INDIGO, 4, surface, k, 0)
 
 
-    surf.blit(surface, (x, y), special_flags=pygame.BLEND_RGBA_MIN)
+    surf.blit(surface, (x, y))
 def purple_stone(a, surf, x, y):
     '''
     рисуем камень в фиолетовой фишке
@@ -384,11 +380,10 @@ def purple_stone(a, surf, x, y):
 
     pygame.draw.line(surf, LIGHTBLUE, (int(x), int(y)), (int(x - 0.45 * a), int(y - 0.62 * a)))
     pygame.draw.line(surf, LIGHTBLUE, (int(x), int(y)), (int(x - 0.62 * a), int(y - 0.45 * a)))
-def yellow_chip(a, surf, color, k, x, y):
+def yellow_chip(a, surf, k, x, y):
     '''
         функция рисует жёлтую фишку с орнаментом
         :param a: размер ячейки
-        :param color: цвет основы ячейки
         :param surf: экран, куда отображается плоскость
         :param k: масштаб изображения внутри ячейкм
         :param x: положение ячейки на экране по оси x
@@ -396,7 +391,7 @@ def yellow_chip(a, surf, color, k, x, y):
         '''
 
     surface = pygame.Surface((a, a), pygame.SRCALPHA, 32)
-    surface.fill(color)
+
 
     pygame.draw.circle(surface, YELLOW, (int(a / 2) , int(a / 2)), int(k * a))
     pygame.draw.circle(surface, GOLD, (int(a / 2), int(a / 2)), int(k * a) , 2)
@@ -634,7 +629,7 @@ def yellow_chip(a, surf, color, k, x, y):
 
 
 
-    surf.blit(surface, (x, y), special_flags=pygame.BLEND_RGBA_MIN)
+    surf.blit(surface, (x, y))
 def yellow_stone(a, surf, x, y):
     '''
     рисуем камень в жёлтой фишке
@@ -659,11 +654,11 @@ def yellow_stone(a, surf, x, y):
                                           [int(x), int(y + 0.3 * a)],
                                           [int(x - 0.3 * a), int(y)]])
 
-def blue_chip(a, surf, color, k, x, y):
+def blue_chip(a, surf, k, x, y):
     '''
     функция рисует синию фишку с орнаментом
     :param a: размер ячейки
-    :param color: цвет основы ячейки
+
     :param surf: экран, куда отображается плоскость
     :param k: масштаб изображения внутри ячейкм
     :param x: положение ячейки на экране по оси x
@@ -671,7 +666,6 @@ def blue_chip(a, surf, color, k, x, y):
     '''
 
     surface = pygame.Surface((a, a), pygame.SRCALPHA, 32)
-    surface.fill(color)
 
     draw1(a, ROYALBLUE, BLUE, 6, surface, k, math.pi / 6)
 
@@ -735,7 +729,7 @@ def blue_chip(a, surf, color, k, x, y):
                                        int(k * a / 3), int(k * a / 3)), 1.05, 5.89)
 
     pygame.draw.circle(surface, BLUE, (int(a / 2), int(a / 2)), int(math.sqrt(2) * k * a / 3), 2)
-    surf.blit(surface, (x, y), special_flags=pygame.BLEND_RGBA_MIN)
+    surf.blit(surface, (x, y))
 def blue_stone(a, surf, x, y):
     '''
     рисуем камень в синей фишке
@@ -760,23 +754,24 @@ def blue_stone(a, surf, x, y):
                                              [int(x - 0.8 * a * math.sin((i + 1) * u)),
                                               int(y - 0.8 * a * math.cos((i + 1) * u))]])
 
-def orange_chip(a, surf, color, k, x, y):
+def orange_chip(a, surf, k, x, y):
     '''
     функция рисует оранжевую фишку с орнаментом
     :param a: размер ячейки
-    :param color: цвет основы ячейки
+
     :param surf: экран, куда отображается плоскость
     :param k: масштаб изображения внутри ячейкм
     :param x: положение ячейки на экране по оси x
     :param y: положение ячейки на экране по оси y
      '''
 
-    surface = pygame.Surface((a, a), pygame.SRCALPHA, 32)
-    surface.fill(color)
+    surface = pygame.Surface((a, a))
+    surface.fill(WHITE)
+    surface.set_colorkey(WHITE)
 
     pygame.draw.circle(surface, DARKORANGE, (int(a / 2), int(a / 2)), int(k * a))
-    pygame.draw.circle(surface, color, (int(a / 2 + k * a * 1.65), int(a / 2)), int(k * a))
-    pygame.draw.circle(surface, color, (int(a / 2 - k * a * 1.65), int(a / 2)), int(k * a))
+    pygame.draw.circle(surface, WHITE, (int(a / 2 + k * a * 1.65), int(a / 2)), int(k * a))
+    pygame.draw.circle(surface, WHITE, (int(a / 2 - k * a * 1.65), int(a / 2)), int(k * a))
 
     pygame.draw.arc(surface, ORANGERED, (int(a / 2 - k * a), int(a / 2 - k * a),
                                        int(2 * k * a ), int(2 * k * a )), 0.62, 2.52, 3)
@@ -878,8 +873,8 @@ def orange_chip(a, surf, color, k, x, y):
                        [int(a / 2 + 0.1 * k * a), int(a / 2 + 0.8 * k * a)]])
 
     draw2(a, ORANGERED, 6, surface, k, math.pi / 6)
-
-    surf.blit(surface, (x, y), special_flags=pygame.BLEND_RGBA_MIN)
+    surface.set_colorkey(WHITE)
+    surf.blit(surface, (x, y))
 def orange_stone(a, surf, x, y):
     '''
     рисуем камень в оранжевой фишке
@@ -902,18 +897,16 @@ def orange_stone(a, surf, x, y):
     pygame.draw.line(surf, LIMEGREEN, list[0], list[3], 2)
     pygame.draw.line(surf, LIMEGREEN, list[1], list[5], 2)
 
-def gray_chip(a, surf, color, k, x, y):
+def gray_chip(a, surf, k, x, y):
     '''
     функция рисует серую фишку с орнаментом
     :param a: размер ячейки
-    :param color: цвет основы ячейки
     :param surf: экран, куда отображается плоскость
     :param k: масштаб изображения внутри ячейкм
     :param x: положение ячейки на экране по оси x
     :param y: положение ячейки на экране по оси y
     '''
     surface = pygame.Surface((a, a), pygame.SRCALPHA, 32)
-    surface.fill(color)
 
     draw1(a, SILVER, GRAY, 4, surface, k, 0)
 
@@ -1104,7 +1097,7 @@ def gray_chip(a, surf, color, k, x, y):
 
     draw2(a, GRAY, 8, surface, k, 0)
 
-    surf.blit(surface, (x, y), special_flags=pygame.BLEND_RGBA_MIN)
+    surf.blit(surface, (x, y))
 def gray_stone(a, surf, x, y):
     '''
     рисуем камень в серой фишке
@@ -1124,18 +1117,17 @@ def gray_stone(a, surf, x, y):
     for i in range(0, 8, 1):
         pygame.draw.polygon(surf, colors[i], [list[i], list[i + 1], [int(x), int(y)]])
 
-def green_chip(a, surf, color, k, x, y):
+def green_chip(a, surf, k, x, y):
     '''
     функция рисует серую зелёную фишку с орнаментом
     :param a: размер ячейки
-    :param color: цвет основы ячейки
     :param surf: экран, куда отображается плоскость
     :param k: масштаб изображения внутри ячейкм
     :param x: положение ячейки на экране по оси x
     :param y: положение ячейки на экране по оси y
     '''
     surface = pygame.Surface((a, a), pygame.SRCALPHA, 32)
-    surface.fill(color)
+
 
     draw1(a, GREEN, DARKGREEN, 4, surface, k, math.pi / 4)
 
@@ -1268,8 +1260,8 @@ def green_chip(a, surf, color, k, x, y):
                                        int(0.08 * k * a), int(0.08 * k * a)), 0, 3.14)
 
     draw2(a, DARKGREEN, 8, surface, k, 0)
+    surf.blit(surface, (x, y))
 
-    surf.blit(surface, (x, y), special_flags=pygame.BLEND_RGBA_MIN)
 def green_stone(a, surf, x, y):
     '''
     рисуем камень в зелёной фишке
@@ -1565,7 +1557,21 @@ def draw_bonus_dynamite(surf, x, y, a):
     pygame.draw.circle(surf, TOMATO, (int(x + 0.43 * a), int(y + 0.16 * a)), int(0.1 * a), 2)
     #обвивающая веревка
     pygame.draw.arc(surf, SIENNA, (int(x - 0.8 * a), int(y - 0.8 * a), int(0.8 * a), int(1.8 * a)), -0.42, 0.63, 5)
-
+    # координты штрихов на веревке по оси x
+    list_x1 = [int(x - 0.06 * a), int(x - 0.02 * a), int(x - 0.05 * a), int(x - 0.02 * a),
+               int(x - 0.05 * a), int(x - 0.01 * a), int(x - 0.05 * a), int(x - 0.01 * a),
+               int(x - 0.05 * a), int(x - 0.01 * a), int(x - 0.05 * a), int(x - 0.01 * a),
+               int(x - 0.06 * a), int(x - 0.02 * a), int(x - 0.06 * a), int(x - 0.02 * a),
+               int(x - 0.07 * a), int(x - 0.04 * a)]
+    # координаты штрихов на веревке по оси y
+    list_y1 = [int(y + 0.36 * a), int(y + 0.28 * a), int(y + 0.29 * a), int(y + 0.21 * a),
+               int(y + 0.22 * a), int(y + 0.14 * a), int(y + 0.15 * a), int(y + 0.07 * a),
+               int(y + 0.08 * a), int(y + 0.00 * a), int(y + 0.01 * a), int(y - 0.07 * a),
+               int(y - 0.06 * a), int(y - 0.16 * a), int(y - 0.15 * a), int(y - 0.24 * a),
+               int(y - 0.23 * a), int(y - 0.34 * a)]
+    for i in range(int(0.5 * len(list_x1))):
+        pygame.draw.line(screen, TAN, (list_x1[2 * i], list_y1[2 * i]),
+                         (list_x1[2 * i + 1], list_y1[2 * i + 1]), 1)
 def almaz_animation(surf, x, y, a):
     """
     рисует анимацию бликов на драгоценном камне
@@ -1586,25 +1592,25 @@ def almaz_animation(surf, x, y, a):
 
 
 
-red_chip(100, screen, WHITE, 0.4, 500, 400)
+red_chip(100, screen, 0.4, 500, 400)
 red_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 550, 450)
 
-yellow_chip(100, screen, WHITE, 0.4, 600, 100)
+yellow_chip(100, screen, 0.4, 600, 100)
 yellow_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 650, 150)
 
-blue_chip(100, screen, WHITE, 0.4, 650, 300 )
+blue_chip(100, screen, 0.4, 650, 300 )
 blue_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 700, 350)
 
-orange_chip(100, screen, WHITE, 0.4, 100, 100)
+#orange_chip(100, screen, 0.4, 200, 100)
 orange_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 150, 150)
 
-purple_chip(100, screen, WHITE, 0.4, 100, 200)
+purple_chip(100, screen, 0.4, 100, 200)
 purple_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 150, 250)
 
 #gray_chip(100, screen, WHITE, 0.4, 250, 200)
 #gray_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 150, 450)
 
-green_chip(100, screen, WHITE, 0.4, 200, 300)
+green_chip(100, screen, 0.4, 200, 300)
 green_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 250, 350)
 
 
@@ -1621,12 +1627,15 @@ finished = False
 while not finished:
     clock.tick(FPS)
     draw_pole(4, 50, CADETBLUE, DIMGREY, 250, 100, 16)
-    gray_chip(100, screen, WHITE, 0.4, 250, 250)
-    gray_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 300, 400)
+    gray_chip(100, screen, 0.4, 290, 270)
+    gray_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 340, 320)
+    orange_chip(100, screen, 0.4, 100, 100)
     draw_bonus_dynamite(screen, 150, 150, 100)
     almaz_animation(screen, 300, 400, 12)
     draw_bonus_cross(screen, 300, 240, 50)
     cross_animation(screen, 300, 240, 50)
+    green_chip(100, screen, 0.4, 350, 170)
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             finished = True
