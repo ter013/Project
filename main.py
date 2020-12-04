@@ -40,6 +40,6 @@ while running:
     all_sprites.update()
     screen.fill(WHITE)
     s.draw_score(screen)
-    s.fall()
     all_sprites.draw(screen)
     pygame.display.flip()
+    s.fall()
