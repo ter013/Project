@@ -1,6 +1,7 @@
 #прорисовка объектов
 import pygame, sys
 from random import randint
+import random
 from pygame.draw import *
 import math
 
@@ -1555,23 +1556,85 @@ def draw_bonus_dynamite(surf, x, y, a):
                                        [int(x - 0.29 * a), int(y + 0.36 * a)]])
     pygame.draw.circle(surf, FIREBRICK, (int(x + 0.43 * a), int(y + 0.16 * a)), int(0.1 * a))
     pygame.draw.circle(surf, TOMATO, (int(x + 0.43 * a), int(y + 0.16 * a)), int(0.1 * a), 2)
-    #обвивающая веревка
+    #обвивающая веревка(почти вертикальная)
     pygame.draw.arc(surf, SIENNA, (int(x - 0.8 * a), int(y - 0.8 * a), int(0.8 * a), int(1.8 * a)), -0.42, 0.63, 5)
     # координты штрихов на веревке по оси x
-    list_x1 = [int(x - 0.06 * a), int(x - 0.02 * a), int(x - 0.05 * a), int(x - 0.02 * a),
+    list_x1 = [int(x - 0.07 * a), int(x - 0.02 * a),
+               int(x - 0.06 * a), int(x - 0.02 * a), int(x - 0.05 * a), int(x - 0.02 * a),
                int(x - 0.05 * a), int(x - 0.01 * a), int(x - 0.05 * a), int(x - 0.01 * a),
                int(x - 0.05 * a), int(x - 0.01 * a), int(x - 0.05 * a), int(x - 0.01 * a),
                int(x - 0.06 * a), int(x - 0.02 * a), int(x - 0.06 * a), int(x - 0.02 * a),
-               int(x - 0.07 * a), int(x - 0.04 * a)]
+               int(x - 0.07 * a), int(x - 0.04 * a), int(x - 0.08 * a), int(x - 0.07 * a)]
     # координаты штрихов на веревке по оси y
-    list_y1 = [int(y + 0.36 * a), int(y + 0.28 * a), int(y + 0.29 * a), int(y + 0.21 * a),
+    list_y1 = [int(y + 0.45 * a), int(y + 0.35 * a),
+               int(y + 0.36 * a), int(y + 0.28 * a), int(y + 0.29 * a), int(y + 0.21 * a),
                int(y + 0.22 * a), int(y + 0.14 * a), int(y + 0.15 * a), int(y + 0.07 * a),
                int(y + 0.08 * a), int(y + 0.00 * a), int(y + 0.01 * a), int(y - 0.07 * a),
                int(y - 0.06 * a), int(y - 0.16 * a), int(y - 0.15 * a), int(y - 0.24 * a),
-               int(y - 0.23 * a), int(y - 0.34 * a)]
+               int(y - 0.23 * a), int(y - 0.34 * a), int(y - 0.33 * a), int(y - 0.41 * a)]
     for i in range(int(0.5 * len(list_x1))):
         pygame.draw.line(screen, TAN, (list_x1[2 * i], list_y1[2 * i]),
                          (list_x1[2 * i + 1], list_y1[2 * i + 1]), 1)
+    #вторая обвивающая веревка
+    pygame.draw.arc(surf, SIENNA, (int(x - 1.2 * a), int(y - 0.02 * a), int(1.4 * a), int(0.8 * a)), 0.1, 1.4, 5)
+    # координаты штрихов для этой верёвке по оси  x
+    list_x2 = [int(x + 0.16 * a), int(x + 0.17 * a), int(x + 0.13 * a), int(x + 0.14 * a),
+               int(x + 0.10 * a), int(x + 0.1 * a), int(x + 0.07 * a), int(x + 0.06 * a),
+               int(x + 0.03 * a), int(x + 0.02 * a), int(x + 0.00 * a), int(x - 0.01 * a),
+               int(x - 0.03 * a), int(x - 0.05 * a), int(x - 0.07 * a), int(x - 0.09 * a),
+               int(x - 0.10 * a), int(x - 0.13 * a), int(x - 0.14 * a), int(x - 0.19 * a),
+               int(x - 0.22 * a), int(x - 0.25 * a), int(x - 0.27 * a), int(x - 0.32 * a),
+               int(x - 0.29 * a), int(x - 0.34 * a)]
+    # координаты штрихов для этой верёвки по оси y
+    list_y2 =  [int(y + 0.35 * a), int(y + 0.28 * a), int(y + 0.30 * a), int(y + 0.23 * a),
+                int(y + 0.25 * a), int(y + 0.18 * a), int(y + 0.21 * a), int(y + 0.14 * a),
+                int(y + 0.18 * a), int(y + 0.12 * a), int(y + 0.16 * a), int(y + 0.10 * a),
+                int(y + 0.13 * a), int(y + 0.07 * a), int(y + 0.11 * a), int(y + 0.04 * a),
+                int(y + 0.09 * a), int(y + 0.04 * a), int(y + 0.07 * a), int(y + 0.02 * a),
+                int(y + 0.05 * a), int(y + 0.00 * a), int(y + 0.03 * a), int(y - 0.02 * a),
+                int(y + 0.01 * a), int(y - 0.03 * a)]
+    for i in range(int(0.5 * len(list_x2))):
+        pygame.draw.line(screen, TAN, (list_x2[2 * i], list_y2[2 * i]),
+                                      (list_x2[2 * i + 1], list_y2[2 * i + 1]), 1)
+
+    # веревка от динамита
+    pygame.draw.arc(surf, SIENNA, (int(x + 0.07 * a), int(y - 0.2 * a), int(0.4 * a), int(0.6 * a)), -0.2, 1.4, 5)
+    # координтаты штрихов динамитной веревки по оси x
+    list_x3 = [int(x + 0.42 * a), int(x + 0.46 * a), int(x + 0.42 * a), int(x + 0.46 * a),
+               int(x + 0.42 * a), int(x + 0.45 * a), int(x + 0.41 * a), int(x + 0.43 * a),
+               int(x + 0.38 * a), int(x + 0.37 * a), int(x + 0.35 * a), int(x + 0.34 * a)]
+    # координаты штрихов динамитно веревки по оси y
+    list_y3 = [int(y + 0.15 * a), int(y + 0.10 * a), int(y + 0.09 * a), int(y + 0.03 * a),
+               int(y + 0.04 * a), int(y - 0.02 * a), int(y - 0.03 * a), int(y - 0.09 * a),
+               int(y - 0.1 * a), int(y - 0.16 * a), int(y - 0.13 * a), int(y - 0.17 * a)]
+    for i in range(int(0.5 * len(list_x3))):
+        pygame.draw.line(screen, TAN, (list_x3[2 * i], list_y3[2 * i]),
+                                      (list_x3[2 * i + 1], list_y3[2 * i + 1]), 1)
+def dynamite_animation(surf, x, y,a):
+    '''
+    функция рисует анимацию огонька у динамита
+    :param surf: поверхность отрисовки
+    :param x: координата анимации по оси x
+    :param y: координата анимации по оси y
+    :param a: характерный размер анимации
+    '''
+
+    list_r = [] # радиус вершины n - угольника
+    list_angle = [] # угол оносительно вертикали
+    for i in range(0, 20, 1):
+        list_r.append(a * random.uniform(0.4, 0.8))
+        list_angle.append(random.uniform(0, 6.18))
+    list_x = []
+    list_y = []
+    for i in range(0, 20, 1):
+        list_x.append(int(x + list_r[i] * math.sin(list_angle[i])))
+        list_y.append(int(y - list_r[i] * math.cos(list_angle[i])))
+    list_coords = []
+    for i in range(0, 20, 1):
+        list_coords.append([list_x[i], list_y[i]])
+    polygon(surf, LIGHTYELLOW, list_coords)
+
+
 def almaz_animation(surf, x, y, a):
     """
     рисует анимацию бликов на драгоценном камне
@@ -1635,7 +1698,8 @@ while not finished:
     draw_bonus_cross(screen, 300, 240, 50)
     cross_animation(screen, 300, 240, 50)
     green_chip(100, screen, 0.4, 350, 170)
-
+    draw_bonus_dynamite(screen, 700, 350, 100)
+    dynamite_animation(screen, 180, 130, 10)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             finished = True
