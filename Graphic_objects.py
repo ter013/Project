@@ -77,8 +77,8 @@ class Window(pygame.sprite.Sprite):
     def swap(self,coords1,coords2):
         #махнуть местами фишки
 
-        self.field.massive[coords1[0]][coords1[1]].color,self.field.massive[coords2[0]][coords2[1]].color = \
-            self.field.massive[coords2[0]][coords2[1]].color,self.field.massive[coords1[0]][coords1[1]].color
+        self.field.swap(coords1,coords2)
+
         self.move_sound.play()
         self.draw_chip(coords1)
         self.draw_chip(coords2)
@@ -103,6 +103,7 @@ class Window(pygame.sprite.Sprite):
             if self.field.check():
                 self.comatose=True
 
+
     def update (self, event=0):
         #Обработка тычка мыши
 
@@ -123,7 +124,7 @@ class Window(pygame.sprite.Sprite):
                     self.swap(coords1, coords2)
 
                 self.comatose=True
-
+                self.draw_field()
 
             else:
                 self.draw_chip(coords1)

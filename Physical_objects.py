@@ -11,12 +11,27 @@ class Ball:
         self.y = y
         self.r = r
         self.color = color
+        self.cristall=True
         self.live = bool(live)
         self.type="ball"
 
+        bonus=rnd.randint(0,70)
+        self.bomb=(bonus==0)
+        self.cross=(bonus==1)
+        self.rainbow=(bonus==2)
+
     def draw(self, screen):
         "Рисуем шарик"
+        if not self.live:
+            pygame.draw.circle(screen, WHITE, (self.x, self.y), self.r)
+            return
         pygame.draw.circle(screen, self.color, (self.x,self.y), self.r)
+        if self.bomb:
+            pygame.draw.circle(screen, BLACK, (self.x, self.y), self.r)
+            pygame.draw.circle(screen, self.color, (self.x, self.y), self.r//2)
+        if self.cross:
+            pygame.draw.circle(screen, BLACK, (self.x, self.y), self.r//2)
+
         "Потом надо засунуть фишки Лехи"
 
 
@@ -48,15 +63,26 @@ class Field:
 
     def update(self):
         flag=False
-        for i in range(self.n,1,-1):
+        for i in range(self.n,0,-1):
             for j in range(1,self.n+1):
                 if not self.massive[i][j+1].live and self.massive[i][j].live:
                     self.massive[i][j+1].live=True
                     self.massive[i][j].live=False
-                    self.massive[i][j].color,self.massive[i][j+1].color = \
-                        self.massive[i][j+1].color,self.massive[i][j].color
+                    self.swap((i,j),(i,j+1))
                     flag=True
         return flag
+
+    def swap(self,coords1,coords2):
+        self.massive[coords1[0]][coords1[1]].color, self.massive[coords2[0]][coords2[1]].color = \
+            self.massive[coords2[0]][coords2[1]].color, self.massive[coords1[0]][coords1[1]].color
+        self.massive[coords1[0]][coords1[1]].bomb, self.massive[coords2[0]][coords2[1]].bomb = \
+            self.massive[coords2[0]][coords2[1]].bomb, self.massive[coords1[0]][coords1[1]].bomb
+        self.massive[coords1[0]][coords1[1]].cross, self.massive[coords2[0]][coords2[1]].cross = \
+            self.massive[coords2[0]][coords2[1]].cross, self.massive[coords1[0]][coords1[1]].cross
+        self.massive[coords1[0]][coords1[1]].rainbow, self.massive[coords2[0]][coords2[1]].rainbow = \
+            self.massive[coords2[0]][coords2[1]].rainbow, self.massive[coords1[0]][coords1[1]].rainbow
+        self.massive[coords1[0]][coords1[1]].cristall, self.massive[coords2[0]][coords2[1]].cristall = \
+            self.massive[coords2[0]][coords2[1]].cristall, self.massive[coords1[0]][coords1[1]].cristall
 
     def check(self):
         for i in range(1,self.n+1):
@@ -85,12 +111,37 @@ class Field:
                     self.massive[v.x + g.x][v.y + g.y].live=False
 
         if len(vol)>=3:
-            self.score+=len(vol)
+            current_score=0
             for v in vol:
-                self.massive[v.x][v.y].color=WHITE
+                self.kill(v.x,v.y)
             return True
         else:
             for v in vol:
                 self.massive[v.x][v.y].live=True
             return False
 
+    def kill(self,x,y):
+        self.massive[x][y].live = False
+        current_chip = self.massive[x][y]
+        self.score += current_chip.cristall
+        if current_chip.bomb:
+            self.bomb_bonus(x,y)
+        if current_chip.cross:
+            self.cross_bonus(x,y)
+
+    def bomb_bonus(self,x,y):
+        deltax=[0,1,-1]
+        deltay=[0,1,-1]
+
+        for dx in deltax:
+            for dy in deltay:
+                if x+dx==0 or x+dx==self.n+1 or y+dy==0 or y+dy==self.n+1 or not self.massive[x+dx][y+dy].live:
+                    continue
+                self.kill(x+dx,y+dy)
+
+    def cross_bonus(self,x,y):
+        for i in range(1,self.n+1):
+            if self.massive[x][i].live:
+                self.kill(x,i)
+            if self.massive[i][y].live:
+                self.kill(i,y)
