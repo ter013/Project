@@ -2,6 +2,7 @@ import random as rnd
 import pygame
 from Colors import *
 from draw import *
+from sounds import *
 
 Colors=[RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE, DIMGREY]
 
@@ -126,7 +127,6 @@ class Field:
 
         for v in vol:
             for g in go:
-                #print(self.massive[v.x][v.y].color, self.massive[v.x+g.x][v.y+g.y].color)
                 if (self.massive[v.x+g.x][v.y+g.y].color==current_color or self.massive[v.x+g.x][v.y+g.y].rainbow) \
                         and self.massive[v.x+g.x][v.y+g.y].live:
                     vol+=[wave(v.x+g.x,v.y+g.y)]
@@ -159,6 +159,8 @@ class Field:
                 if x+dx<=0 or x+dx>=self.n+1 or y+dy<=0 or y+dy>=self.n+1 or not self.massive[x+dx][y+dy].live:
                     continue
                 self.kill(x+dx,y+dy,False)
+
+        explosion_sound.play()
 
     def cross_bonus(self,x,y):
         for i in range(1,self.n+1):

@@ -192,7 +192,8 @@ def red_stone(a, surf, x, y):
                     0.54, 2.6, 2)
     pygame.draw.circle(surf, AQUAMARINE, (int(x), int(y)), int(0.3 * a))
 
-    almaz_animation(screen, x, y, 0.8 * a)
+    almaz_animation(surf, x, y, 0.8 * a)
+
 
 def purple_chip(a, surf, k, x, y):
     '''
@@ -385,7 +386,9 @@ def purple_stone(a, surf, x, y):
     pygame.draw.line(surf, LIGHTBLUE, (int(x), int(y)), (int(x - 0.45 * a), int(y - 0.62 * a)))
     pygame.draw.line(surf, LIGHTBLUE, (int(x), int(y)), (int(x - 0.62 * a), int(y - 0.45 * a)))
 
-    almaz_animation(screen, x, y, 0.8 * a)
+    almaz_animation(surf, x, y, 0.8 * a)
+
+
 def yellow_chip(a, surf, k, x, y):
     '''
         функция рисует жёлтую фишку с орнаментом
@@ -660,7 +663,9 @@ def yellow_stone(a, surf, x, y):
                                           [int(x), int(y + 0.3 * a)],
                                               [int(x - 0.3 * a), int(y)]])
 
-    almaz_animation(screen, x, y, 0.8 * a)
+    almaz_animation(surf, x, y, 0.8 * a)
+
+
 def blue_chip(a, surf, k, x, y):
     '''
     функция рисует синию фишку с орнаментом
@@ -761,7 +766,9 @@ def blue_stone(a, surf, x, y):
                                              [int(x - 0.8 * a * math.sin((i + 1) * u)),
                                               int(y - 0.8 * a * math.cos((i + 1) * u))]])
 
-    almaz_animation(screen, x, y, 0.8 * a)
+    almaz_animation(surf, x, y, 0.8 * a)
+
+
 def orange_chip(a, surf, k, x, y):
     '''
     функция рисует оранжевую фишку с орнаментом
@@ -905,7 +912,9 @@ def orange_stone(a, surf, x, y):
     pygame.draw.line(surf, LIMEGREEN, list[0], list[3], 2)
     pygame.draw.line(surf, LIMEGREEN, list[1], list[5], 2)
 
-    almaz_animation(screen, x, y, 0.8 * a)
+    almaz_animation(surf, x, y, 0.8 * a)
+
+
 def gray_chip(a, surf, k, x, y):
     '''
     функция рисует серую фишку с орнаментом
@@ -1126,7 +1135,9 @@ def gray_stone(a, surf, x, y):
     for i in range(0, 8, 1):
         pygame.draw.polygon(surf, colors[i], [list[i], list[i + 1], [int(x), int(y)]])
 
-    almaz_animation(screen, x, y, 0.8 * a)
+    almaz_animation(surf, x, y, 0.8 * a)
+
+
 def green_chip(a, surf, k, x, y):
     '''
     функция рисует серую зелёную фишку с орнаментом
@@ -1291,7 +1302,9 @@ def green_stone(a, surf, x, y):
         pygame.draw.polygon(surf, colors[i], [list[i], list[i + 1], [int(x), int(y)]])
     pygame.draw.circle(surf, LEMONCHIFFON, (int(x), int(y)), int(0.4 * a))
 
-    almaz_animation(screen, x, y, 0.8 * a)
+    almaz_animation(surf, x, y, 0.8 * a)
+
+
 def multi_chip(a, surf, k, x, y, p, alpha):
     '''
     функция рисует бонусную фишку, которая имеет любой цвет и может реагировать с любым рядом
@@ -1359,6 +1372,7 @@ def multi_chip(a, surf, k, x, y, p, alpha):
                          (int(a / 2 + k * a * math.sin((alpha + i * 72) / 180 * math.pi)),
                           int(a / 2 - k * a * math.cos(((alpha + i * 72) / 180 * math.pi)))), 3)
     surf.blit(surface, (x, y))
+
 def draw_uzor(surf, x, y, b):
     '''
     рисует красивый узор для поля
@@ -1509,7 +1523,7 @@ def draw_border2(surf, x, y, background_color, spiral_color, b, n):
                                                   [int(x + 1.6 * b), int(y + 0.5 * b - (-1) ** n * 0.1 * b)],
                                                   [int(x + 1.6 * b), int(y + 0.5 * b + (-1) ** n * 0.1 * b)]])
 
-def draw_pole(n, a, color1, color2, x, y, b):
+def draw_pole(surf, n, a, color1, color2, x, y, b):
     '''
     красивое оформление поля
     :param n: количество фишек на стороне
@@ -1521,26 +1535,26 @@ def draw_pole(n, a, color1, color2, x, y, b):
     :param b: размер узора
     '''
 
-    pygame.draw.rect(screen, color1,(int(x), int(y), int(n * a), int(n * a)))
+    pygame.draw.rect(surf, color1,(int(x), int(y), int(n * a), int(n * a)))
 
     for i in range(0, n + 1, 1):
         for j in range(0, n, 1):
-            pygame.draw.line(screen, color2, (int(x + j * a + 0.65 * b), int(y + i * a)),
+            pygame.draw.line(surf, color2, (int(x + j * a + 0.65 * b), int(y + i * a)),
                              (int(x + (j + 1) * a - 0.65 * b), int(y + i * a)),2)
-            pygame.draw.line(screen, color2, (int(x + i * a), int(y + j * a + 0.65 * b)),
+            pygame.draw.line(surf, color2, (int(x + i * a), int(y + j * a + 0.65 * b)),
                              (int(x + i * a), int(y + (j + 1) * a - 0.65 * b)),2)
     for i in range(0, n + 1, 1):
         for j in range(0, n + 1, 1):
-            draw_uzor(screen, x + i * a, y + j * a, b)
+            draw_uzor(surf, x + i * a, y + j * a, b)
 
     for i in range(0, n + 1, 1):
-        draw_border1(screen, int(x + n * a), int(y - a / 2 + a * i), DARKGOLDENROD, DIMGREY, int(a / 2), 0)
+        draw_border1(surf, int(x + n * a), int(y - a / 2 + a * i), DARKGOLDENROD, DIMGREY, int(a / 2), 0)
     for i in range(0, n + 1, 1):
-        draw_border1(screen, int(x - a / 2), int(y - a / 2 + a * i), DARKGOLDENROD, DIMGREY, int(a / 2), 1)
+        draw_border1(surf, int(x - a / 2), int(y - a / 2 + a * i), DARKGOLDENROD, DIMGREY, int(a / 2), 1)
     for i in range(0, n, 1):
-        draw_border2(screen, int(x + i * a), int(y - a / 2), DARKGOLDENROD, DIMGREY, int(a / 2), 0)
+        draw_border2(surf, int(x + i * a), int(y - a / 2), DARKGOLDENROD, DIMGREY, int(a / 2), 0)
     for i in range(0, n, 1):
-        draw_border2(screen, int(x + i * a), int(y + n * a), DARKGOLDENROD, DIMGREY, int(a / 2), 1)
+        draw_border2(surf, int(x + i * a), int(y + n * a), DARKGOLDENROD, DIMGREY, int(a / 2), 1)
 
 def draw_bonus_cross(surf, x, y, a):
     '''
@@ -1566,7 +1580,7 @@ def draw_bonus_cross(surf, x, y, a):
     pygame.draw.ellipse(surf, STEELBLUE, (int(x + 0.98 * a), int(y - 0.2 * a), int(0.2 * a), int(0.4 * a)))
     pygame.draw.ellipse(surf, BLACK, (int(x + 1.04 * a), int(y - 0.1 * a), int(0.1 * a), int(0.2 * a)))
 
-    cross_animation(screen, x, y, a)
+    cross_animation(surf, x, y, a)
 def cross_animation(surf, x, y, a):
     '''
     функция рисует анимацию фишки, при наложении бонуса на неё
@@ -1575,40 +1589,41 @@ def cross_animation(surf, x, y, a):
     :param y: координата центра по оси y
     :param a: характерный размер
     '''
-    pygame.draw.circle(screen, LIGHTYELLOW, (int(x), int(y)), int(0.15 * a))
+    pygame.draw.circle(surf, LIGHTYELLOW, (int(x), int(y)), int(0.15 * a))
     q = randint(0, 2)
     alpha = [] #лист для углов поворота молний внутри бонуса
     for i in range(0, q, 1):
         alpha.append(randint(0,360))
     for i in range(0, q, 1):
-        pygame.draw.line(screen,LIGHTYELLOW, (int(x), int(y)),
+        pygame.draw.line(surf,LIGHTYELLOW, (int(x), int(y)),
                          (int(x + 0.5 * a * math.sin(math.pi * alpha[i] / 180)),
                           int(y + 0.5 * a * math.cos(math.pi * alpha[i] / 180))))
-        pygame.draw.line(screen, VIOLET,
+        pygame.draw.line(surf, VIOLET,
                          (int(x + 0.5 * a * math.sin(math.pi * alpha[i] / 180)),
                           int(y + 0.5 * a * math.cos(math.pi * alpha[i] / 180))),
                          (int(x + 0.6 * a * math.sin(math.pi * alpha[i] / 180 + 0.26)),
                           int(y + 0.6 * a * math.cos(math.pi * alpha[i] / 180 + 0.26))))
-        pygame.draw.line(screen, LIGHTYELLOW,
+        pygame.draw.line(surf, LIGHTYELLOW,
                          (int(x + 0.6 * a * math.sin(math.pi * alpha[i] / 180 + 0.26)),
                           int(y + 0.6 * a * math.cos(math.pi * alpha[i] / 180 + 0.26))),
                          (int(x + 0.8 * a * math.sin(math.pi * alpha[i] / 180 + 0.26)),
                           int(y + 0.8 * a * math.cos(math.pi * alpha[i] / 180 + 0.26))))
-        pygame.draw.line(screen, VIOLET,
+        pygame.draw.line(surf, VIOLET,
                          (int(x + 0.8 * a * math.sin(math.pi * alpha[i] / 180 + 0.26)),
                           int(y + 0.8 * a * math.cos(math.pi * alpha[i] / 180 + 0.26))),
                          (int(x + 1.0 * a * math.sin(math.pi * alpha[i] / 180 + 0.52)),
                           int(y + 1.0 * a * math.cos(math.pi * alpha[i] / 180 + 0.52))))
-        pygame.draw.line(screen, VIOLET,
+        pygame.draw.line(surf, VIOLET,
                          (int(x + 0.5 * a * math.sin(math.pi * alpha[i] / 180)),
                           int(y + 0.5 * a * math.cos(math.pi * alpha[i] / 180))),
                          (int(x + 0.7 * a * math.sin(math.pi * alpha[i] / 180 + 0.14)),
                           int(y + 0.7 * a * math.cos(math.pi * alpha[i] / 180 + 0.14))))
-        pygame.draw.line(screen, LIGHTYELLOW,
+        pygame.draw.line(surf, LIGHTYELLOW,
                          (int(x + 0.7 * a * math.sin(math.pi * alpha[i] / 180 + 0.14)),
                           int(y + 0.7 * a * math.cos(math.pi * alpha[i] / 180 + 0.14))),
                          (int(x + 1.0 * a * math.sin(math.pi * alpha[i] / 180 - 0.02)),
                           int(y + 1.0 * a * math.cos(math.pi * alpha[i] / 180 - 0.02))))
+
 def draw_bonus_dynamite(surf, x, y, a):
     '''
     функция рисует бонус динамит
@@ -1651,7 +1666,7 @@ def draw_bonus_dynamite(surf, x, y, a):
                int(y - 0.06 * a), int(y - 0.16 * a), int(y - 0.15 * a), int(y - 0.24 * a),
                int(y - 0.23 * a), int(y - 0.34 * a), int(y - 0.33 * a), int(y - 0.41 * a)]
     for i in range(int(0.5 * len(list_x1))):
-        pygame.draw.line(screen, TAN, (list_x1[2 * i], list_y1[2 * i]),
+        pygame.draw.line(surf, TAN, (list_x1[2 * i], list_y1[2 * i]),
                          (list_x1[2 * i + 1], list_y1[2 * i + 1]), 1)
     #вторая обвивающая веревка
     pygame.draw.arc(surf, SIENNA, (int(x - 1.2 * a), int(y - 0.02 * a), int(1.4 * a), int(0.8 * a)), 0.1, 1.4, 5)
@@ -1672,7 +1687,7 @@ def draw_bonus_dynamite(surf, x, y, a):
                 int(y + 0.05 * a), int(y + 0.00 * a), int(y + 0.03 * a), int(y - 0.02 * a),
                 int(y + 0.01 * a), int(y - 0.03 * a)]
     for i in range(int(0.5 * len(list_x2))):
-        pygame.draw.line(screen, TAN, (list_x2[2 * i], list_y2[2 * i]),
+        pygame.draw.line(surf, TAN, (list_x2[2 * i], list_y2[2 * i]),
                                       (list_x2[2 * i + 1], list_y2[2 * i + 1]), 1)
 
     # веревка от динамита
@@ -1686,12 +1701,11 @@ def draw_bonus_dynamite(surf, x, y, a):
                int(y + 0.04 * a), int(y - 0.02 * a), int(y - 0.03 * a), int(y - 0.09 * a),
                int(y - 0.1 * a), int(y - 0.16 * a), int(y - 0.13 * a), int(y - 0.17 * a)]
     for i in range(int(0.5 * len(list_x3))):
-        pygame.draw.line(screen, TAN, (list_x3[2 * i], list_y3[2 * i]),
+        pygame.draw.line(surf, TAN, (list_x3[2 * i], list_y3[2 * i]),
                                       (list_x3[2 * i + 1], list_y3[2 * i + 1]), 1)
 
 
     dynamite_animation(surf, x + 0.3 * a, y - 0.2 * a, 0.1 * a)
-
 def dynamite_animation(surf, x, y, a):
     '''
     функция рисует анимацию огонька у динамита
@@ -1716,7 +1730,6 @@ def dynamite_animation(surf, x, y, a):
         list_coords.append([list_x[i], list_y[i]])
     polygon(surf, LIGHTYELLOW, list_coords)
 
-
 def almaz_animation(surf, x, y, a):
     """
     рисует анимацию бликов на драгоценном камне
@@ -1725,6 +1738,7 @@ def almaz_animation(surf, x, y, a):
     :param y: координата центра анимации по оси y
     :param a: характерный размер
     """
+    #return
     p = randint(1, 3)
     list_x = []
     list_y = []
@@ -1732,7 +1746,7 @@ def almaz_animation(surf, x, y, a):
         list_x.append(randint(int(- a + x), int(a + x)))
         list_y.append(randint(int(- a + y), int(a + y)))
     for i in range(0, p, 1):
-        pygame.draw.circle(screen, WHITE, (list_x[i], list_y[i]), 2)
+        pygame.draw.circle(surf, WHITE, (list_x[i], list_y[i]), 2)
 
 def watch(surf, x, y, a, time, time_0):
     '''
@@ -1886,12 +1900,57 @@ finished = False
 
 t = 0
 n = 0
+
+def beautiful_draw(surf,x ,y, a, color, cristall=False, rainbow=0, bonus=0):
+    k=0.4
+    a_cristall=int(k * a / 3 * math.sqrt(2))
+    x_cristall=x+a//2
+    y_cristall=y+a//2
+    if rainbow:
+        multi_chip(a,surf,k*1.25,x,y,random.randint(0,5),0)
+    else:
+        if color == RED:
+            red_chip(a, surf, k, x, y)
+            if cristall:
+                red_stone(a_cristall, surf, x_cristall, y_cristall)
+        if color == ORANGE:
+            orange_chip(a, surf, k, x, y)
+            if cristall:
+                orange_stone(a_cristall, surf, x_cristall, y_cristall)
+        if color == YELLOW:
+            yellow_chip(a, surf, k, x, y)
+            if cristall:
+                yellow_stone(a_cristall, surf, x_cristall, y_cristall)
+        if color == GREEN:
+            green_chip(a, surf, k, x, y)
+            if cristall:
+                green_stone(a_cristall, surf, x_cristall, y_cristall)
+        if color == BLUE:
+            blue_chip(a, surf, k, x, y)
+            if cristall:
+                blue_stone(a_cristall, surf, x_cristall, y_cristall)
+        if color == PURPLE:
+            purple_chip(a, surf, k, x, y)
+            if cristall:
+                purple_stone(a_cristall, surf, x_cristall, y_cristall)
+        if color == DIMGREY:
+            gray_chip(a, surf, k, x, y)
+            if cristall:
+                gray_stone(a_cristall, surf, x_cristall, y_cristall)
+
+
+    if bonus==1:
+        draw_bonus_dynamite(surf, x_cristall, y_cristall, a)
+    if bonus==2:
+       draw_bonus_cross(surf,x_cristall,y_cristall,a//2)
+
+
 time = 4000
 time_0 = 4000
 while not finished:
 
     clock.tick(FPS)
-    draw_pole(4, 50, CADETBLUE, DIMGREY, 250, 100, 16)
+    draw_pole(screen, 4, 50, CADETBLUE, DIMGREY, 250, 100, 16)
 
     gray_chip(100, screen, 0.4, 290, 270)
     gray_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 340, 320)
@@ -1915,16 +1974,15 @@ while not finished:
     purple_chip(100, screen, 0.4, 100, 200)
     purple_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 150, 250)
 
-    red_chip(100, screen, 0.4, 500, 400)
-    red_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 550, 450)
-
+    t += 1
     time -= 5
     watch(screen, 100, 400, 100, time, time_0)
-    t += 1
     if t%15 == 0:
         n = randint(0, 6)
     multi_chip(100, screen, 0.4, 500, 500, n, 0)
 
+    red_chip(100, screen, 0.4, 500, 400)
+    red_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 550, 450)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             finished = True

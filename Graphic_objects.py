@@ -1,11 +1,12 @@
 from Physical_objects import *
 from Colors import *
 from draw import *
+from sounds import *
 
 clock = pygame.time.Clock()
 
 class Window(pygame.sprite.Sprite):
-    def __init__(self, size, Field_size, CELL_SIZE, move_sound, left, top):
+    def __init__(self, size, Field_size, CELL_SIZE, left, top):
         WIDTH = CELL_SIZE * Field_size
         HEIGHT = CELL_SIZE * Field_size
 
@@ -25,8 +26,6 @@ class Window(pygame.sprite.Sprite):
         self.size=Field_size
         self.cell=CELL_SIZE
         self.field=Field(size,CELL_SIZE,CELL_SIZE)
-
-        self.move_sound=move_sound
 
         self.draw_field()
 
@@ -76,7 +75,7 @@ class Window(pygame.sprite.Sprite):
 
         self.field.swap(coords1,coords2)
 
-        self.move_sound.play()
+        move_sound.play()
         self.draw_chip(coords1)
         self.draw_chip(coords2)
 
