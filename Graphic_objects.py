@@ -24,7 +24,7 @@ class Window(pygame.sprite.Sprite):
 
         self.size=Field_size
         self.cell=CELL_SIZE
-        self.field=Field(size,CELL_SIZE,CELL_SIZE)
+        self.field=Field(size,CELL_SIZE,CELL_SIZE,boom_sound)
 
         self.move_sound=move_sound
 
@@ -133,6 +133,8 @@ class Window(pygame.sprite.Sprite):
             if flag:
                 flag=False
                 self.fill_square(self.touch_square,BLACK)
+        if self.field.score == 50:
+            draw_text(screen, 'AWESOME', 50, 50, 20)
 
 
 font_name = pygame.font.match_font('arial')

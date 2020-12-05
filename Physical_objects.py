@@ -43,7 +43,7 @@ class wave:
 
 
 class Field:
-    def __init__(self, n, w, h):
+    def __init__(self, n, w, h,boom_sound):
         self.n = n
         self.w=w
         self.h=h
@@ -51,6 +51,7 @@ class Field:
                        for j in range(n+2)] for i in range(n+2)]
         self.score=0
         self.create_balls()
+        self.boom_sound = boom_sound
 
     def create_balls(self):
         global Colors
@@ -140,7 +141,7 @@ class Field:
     def bomb_bonus(self,x,y):
         deltax=[0,1,-1,2,-2]
         deltay=[0,1,-1,2,-2]
-
+        self.boom_sound.play()
         for dx in deltax:
             for dy in deltay:
                 if x+dx<=0 or x+dx>=self.n+1 or y+dy<=0 or y+dy>=self.n+1 or not self.massive[x+dx][y+dy].live:
