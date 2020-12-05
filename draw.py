@@ -5,6 +5,9 @@ import random
 from pygame.draw import *
 import math
 
+pygame.init()
+font = pygame.font.Font('freesansbold.ttf', 14)
+
 from Colors import *
 
 FPS = 30
@@ -1731,11 +1734,160 @@ def almaz_animation(surf, x, y, a):
     for i in range(0, p, 1):
         pygame.draw.circle(screen, WHITE, (list_x[i], list_y[i]), 2)
 
+def watch(surf, x, y, a, time, time_0):
+    '''
+    функция отвечает за работу часов
+    :param surf: поверхность, на которой отображаются часы
+    :param x: координата центра часов по оси x
+    :param y: координата центра часов по оси y
+    :param a: характерный размер часов
+    :param time: время, оставшееся для игры
+    :param time_0: начальное время игры
+    '''
+    pygame.draw.circle(surf, SILVER, (int(x), int(y)), int(0.95 * a))
+    pygame.draw.circle(surf, GOLD, (int(x), int(y)), int(a), int(0.1 * a))
+    pygame.draw.circle(surf, GOLDENROD, (int(x), int(y)), int(0.9 * a), 2)
+    phi = - 6 * (time / 60)
+    alpha = - 30 * (time / 3600)
+    # рисуем подсветку времени на часах
+    if 0.8 * time_0 <= time <= time_0:
+        for i in range(0, 100, 1):
+            pygame.draw.polygon(surf, GREEN, [[int(x + 0.84 * a * math.sin((i * phi / 100 / 180 * math.pi))),
+                                               int(y - 0.84 * a * math.cos((i * phi / 100 / 180 * math.pi)))],
+                                              [int(x + 0.84 * a * math.sin((i + 1) * phi / 100 / 180 * math.pi)),
+                                               int(y - 0.84 * a * math.cos((i + 1) * phi / 100 / 180 * math.pi))],
+                                              [int(x), int(y)]])
+    if 0.6 * time_0 <= time < 0.8 * time_0:
+        for i in range(0, 100, 1):
+            pygame.draw.polygon(surf, OLIVEDRAB, [[int(x + 0.84 * a * math.sin((i * phi / 100 / 180 * math.pi))),
+                                               int(y - 0.84 * a * math.cos((i * phi / 100 / 180 * math.pi)))],
+                                              [int(x + 0.84 * a * math.sin((i + 1) * phi / 100 / 180 * math.pi)),
+                                               int(y - 0.84 * a * math.cos((i + 1) * phi / 100 / 180 * math.pi))],
+                                              [int(x), int(y)]])
+    if 0.4 * time_0 <= time < 0.6 * time_0:
+        for i in range(0, 100, 1):
+            pygame.draw.polygon(surf, YELLOW, [[int(x + 0.84 * a * math.sin((i * phi / 100 / 180 * math.pi))),
+                                               int(y - 0.84 * a * math.cos((i * phi / 100 / 180 * math.pi)))],
+                                              [int(x + 0.84 * a * math.sin((i + 1) * phi / 100 / 180 * math.pi)),
+                                               int(y - 0.84 * a * math.cos((i + 1) * phi / 100 / 180 * math.pi))],
+                                              [int(x), int(y)]])
+    if 0.2 * time_0 <= time < 0.4 * time_0:
+        for i in range(0, 100, 1):
+            pygame.draw.polygon(surf, CRIMSON, [[int(x + 0.84 * a * math.sin((i * phi / 100 / 180 * math.pi))),
+                                               int(y - 0.84 * a * math.cos((i * phi / 100 / 180 * math.pi)))],
+                                              [int(x + 0.84 * a * math.sin((i + 1) * phi / 100 / 180 * math.pi)),
+                                               int(y - 0.84 * a * math.cos((i + 1) * phi / 100 / 180 * math.pi))],
+                                              [int(x), int(y)]])
+    if 0.0 * time_0 <= time < 0.2 * time_0:
+        for i in range(0, 100, 1):
+            pygame.draw.polygon(surf, DARKRED, [[int(x + 0.84 * a * math.sin((i * phi / 100 / 180 * math.pi))),
+                                               int(y - 0.84 * a * math.cos((i * phi / 100 / 180 * math.pi)))],
+                                              [int(x + 0.84 * a * math.sin((i + 1) * phi / 100 / 180 * math.pi)),
+                                               int(y - 0.84 * a * math.cos((i + 1) * phi / 100 / 180 * math.pi))],
+                                              [int(x), int(y)]])
+    # рисуем часовую стрелку
+
+    pygame.draw.circle(surf, BLACK, (int(x), int(y)), int(0.1 * a), 1)
+    pygame.draw.polygon(surf, BLACK, [[int(x + 0.07 * a * math.sin((alpha + 20) / 180 * math.pi)),
+                                       int(y - 0.07 * a * math.cos((alpha + 20) / 180 * math.pi))],
+                                      [int(x + 0.15 * a * math.sin((alpha + 30) / 180 * math.pi)),
+                                       int(y - 0.15 * a * math.cos((alpha + 30) / 180 * math.pi))],
+                                      [int(x + 0.2 * a * math.sin((alpha + 10) / 180 * math.pi)),
+                                       int(y - 0.2 * a * math.cos((alpha + 10) / 180 * math.pi))],
+                                      [int(x + 0.2 * a * math.sin((alpha - 10) / 180 * math.pi)),
+                                       int(y - 0.2 * a * math.cos((alpha - 10) / 180 * math.pi))],
+                                      [int(x + 0.15 * a * math.sin((alpha - 30) / 180 * math.pi)),
+                                       int(y - 0.15 * a * math.cos((alpha - 30) / 180 * math.pi))],
+                                      [int(x + 0.07 * a * math.sin((alpha - 20) / 180 * math.pi)),
+                                       int(y - 0.07 * a * math.cos((alpha - 20) / 180 * math.pi))]])
+    pygame.draw.polygon(surf, BLACK, [[int(x + 0.18 * a * math.sin((alpha) / 180 * math.pi)),
+                                       int(y - 0.18 * a * math.cos((alpha) / 180 * math.pi))],
+                                      [int(x + 0.3 * a * math.sin((alpha + 5) / 180 * math.pi)),
+                                       int(y - 0.3 * a * math.cos((alpha + 5) / 180 * math.pi))],
+                                      [int(x + 0.4 * a * math.sin(alpha / 180 * math.pi)),
+                                       int(y - 0.4 * a * math.cos(alpha / 180 * math.pi))],
+                                      [int(x + 0.3 * a * math.sin((alpha - 5) / 180 * math.pi)),
+                                       int(y - 0.3 * a * math.cos((alpha - 5) / 180 * math.pi))]])
+    pygame.draw.polygon(surf, BLACK, [[int(x + 0.36 * a * math.sin((alpha + 7) / 180 * math.pi)),
+                                       int(y - 0.36 * a * math.cos((alpha + 7) / 180 * math.pi))],
+                                      [int(x + 0.42 * a * math.sin((alpha + 9) / 180 * math.pi)),
+                                       int(y - 0.42 * a * math.cos((alpha + 9) / 180 * math.pi))],
+                                      [int(x + 0.46 * a * math.sin((alpha + 4) / 180 * math.pi)),
+                                       int(y - 0.46 * a * math.cos((alpha + 4) / 180 * math.pi))],
+                                      [int(x + 0.46 * a * math.sin((alpha - 4) / 180 * math.pi)),
+                                       int(y - 0.46 * a * math.cos((alpha - 4) / 180 * math.pi))],
+                                      [int(x + 0.42 * a * math.sin((alpha - 9) / 180 * math.pi)),
+                                       int(y - 0.42 * a * math.cos((alpha - 9) / 180 * math.pi))],
+                                      [int(x + 0.36 * a * math.sin((alpha - 7) / 180 * math.pi)),
+                                       int(y - 0.36 * a * math.cos((alpha - 7) / 180 * math.pi))]])
+    pygame.draw.lines(surf, BLACK, True, [[int(x + 0.45 * a * math.sin(alpha / 180 * math.pi)),
+                                           int(y - 0.45 * a * math.cos(alpha / 180 * math.pi))],
+                                          [int(x + 0.53 * a * math.sin((alpha + 5) / 180 * math.pi)),
+                                           int(y - 0.53 * a * math.cos((alpha + 5) / 180 * math.pi))],
+                                          [int(x + 0.62 * a * math.sin(alpha / 180 * math.pi)),
+                                           int(y - 0.62 * a * math.cos(alpha / 180 * math.pi))],
+                                          [int(x + 0.53 * a * math.sin((alpha - 5) / 180 * math.pi)),
+                                           int(y - 0.53 * a * math.cos((alpha - 5) / 180 * math.pi))]], 2)
+
+    #рисуем минутную стрелку
+
+    pygame.draw.circle(surf, BLACK, (int(x), int(y)), int(0.1 * a), 1)
+    pygame.draw.polygon(surf, BLACK, [[int(x + 0.07 * a * math.sin((phi + 20) / 180 * math.pi)),
+                                       int(y - 0.07 * a * math.cos((phi + 20) / 180 * math.pi))],
+                                      [int(x + 0.10 * a * math.sin((phi + 30) / 180 * math.pi)),
+                                       int(y - 0.10 * a * math.cos((phi + 30) / 180 * math.pi))],
+                                      [int(x + 0.13 * a * math.sin((phi + 10) / 180 * math.pi)),
+                                       int(y - 0.13 * a * math.cos((phi + 10) / 180 * math.pi))],
+                                      [int(x + 0.13 * a * math.sin((phi - 10) / 180 * math.pi)),
+                                       int(y - 0.13 * a * math.cos((phi - 10) / 180 * math.pi))],
+                                      [int(x + 0.10 * a * math.sin((phi - 30) / 180 * math.pi)),
+                                       int(y - 0.10 * a * math.cos((phi - 30) / 180 * math.pi))],
+                                      [int(x + 0.07 * a * math.sin((phi - 20) / 180 * math.pi)),
+                                       int(y - 0.07 * a * math.cos((phi - 20) / 180 * math.pi))]])
+    pygame.draw.polygon(surf, BLACK, [[int(x + 0.12 * a * math.sin((phi) / 180 * math.pi)),
+                                       int(y - 0.12 * a * math.cos((phi) / 180 * math.pi))],
+                                      [int(x + 0.26 * a * math.sin((phi + 11) / 180 * math.pi)),
+                                       int(y - 0.26 * a * math.cos((phi + 11) / 180 * math.pi))],
+                                      [int(x + 0.40 * a * math.sin(phi / 180 * math.pi)),
+                                       int(y - 0.40 * a * math.cos(phi / 180 * math.pi))],
+                                      [int(x + 0.26 * a * math.sin((phi - 11) / 180 * math.pi)),
+                                       int(y - 0.26 * a * math.cos((phi - 11) / 180 * math.pi))]])
+    pygame.draw.polygon(surf, BLACK, [[int(x + 0.35 * a * math.sin((phi + 7) / 180 * math.pi)),
+                                       int(y - 0.35 * a * math.cos((phi + 7) / 180 * math.pi))],
+                                      [int(x + 0.37 * a * math.sin((phi + 9) / 180 * math.pi)),
+                                       int(y - 0.37 * a * math.cos((phi + 9) / 180 * math.pi))],
+                                      [int(x + 0.41 * a * math.sin((phi + 4) / 180 * math.pi)),
+                                       int(y - 0.41 * a * math.cos((phi + 4) / 180 * math.pi))],
+                                      [int(x + 0.41 * a * math.sin((phi - 4) / 180 * math.pi)),
+                                       int(y - 0.41 * a * math.cos((phi - 4) / 180 * math.pi))],
+                                      [int(x + 0.37 * a * math.sin((phi - 9) / 180 * math.pi)),
+                                       int(y - 0.37 * a * math.cos((phi - 9) / 180 * math.pi))],
+                                      [int(x + 0.35 * a * math.sin((phi - 7) / 180 * math.pi)),
+                                       int(y - 0.35 * a * math.cos((phi - 7) / 180 * math.pi))]])
+    pygame.draw.lines(surf, BLACK, True, [[int(x + 0.40 * a * math.sin(phi / 180 * math.pi)),
+                                           int(y - 0.40 * a * math.cos(phi / 180 * math.pi))],
+                                          [int(x + 0.53 * a * math.sin((phi + 4) / 180 * math.pi)),
+                                           int(y - 0.53 * a * math.cos((phi + 4) / 180 * math.pi))],
+                                          [int(x + 0.68 * a * math.sin(phi / 180 * math.pi)),
+                                           int(y - 0.68 * a * math.cos(phi / 180 * math.pi))],
+                                          [int(x + 0.53 * a * math.sin((phi - 4) / 180 * math.pi)),
+                                           int(y - 0.53 * a * math.cos((phi - 4) / 180 * math.pi))]], 2)
+
+
+    # рисуем цифры
+    for i in range(0, 12, 1):
+        text = font.render(str(i), True, BLACK, SILVER)
+        textRect = text.get_rect()
+        place = text.get_rect(center=(int(x - 0.75 * a * math.sin(2 * math.pi / 12 * i)),
+                                      int(y - 0.75 * a * math.cos(2 * math.pi / 12 * i))))
+        screen.blit(text, place)
 clock = pygame.time.Clock()
 finished = False
 
 t = 0
 n = 0
+time = 4000
+time_0 = 4000
 while not finished:
 
     clock.tick(FPS)
@@ -1763,13 +1915,16 @@ while not finished:
     purple_chip(100, screen, 0.4, 100, 200)
     purple_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 150, 250)
 
+    red_chip(100, screen, 0.4, 500, 400)
+    red_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 550, 450)
+
+    time -= 5
+    watch(screen, 100, 400, 100, time, time_0)
     t += 1
     if t%15 == 0:
         n = randint(0, 6)
     multi_chip(100, screen, 0.4, 500, 500, n, 0)
 
-    red_chip(100, screen, 0.4, 500, 400)
-    red_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 550, 450)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             finished = True
