@@ -103,6 +103,7 @@ class Field:
         return False
 
     def kill_the_rainbow(self,x0,y0):
+        star_sound.play()
         self.massive[x0][y0].rainbow=False
         flag=False
         for c in Colors:
@@ -111,7 +112,6 @@ class Field:
         if not flag:
             self.massive[x0][y0].rainbow=True
         return flag
-
 
     def walk_the_line(self,coords):
         x0=coords[0]

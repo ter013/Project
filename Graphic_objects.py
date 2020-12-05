@@ -32,10 +32,9 @@ class Window(pygame.sprite.Sprite):
         self.comatose=False
 
 
-    def draw_field(self):
+    def draw_field(self,):
         #Нарисовать поле
-        draw_pole(self.image, self.size, self.cell,CADETBLUE, DIMGREY, self.rect.left*0, self.rect.top*0,30)
-
+        draw_pole(self.image, self.size, self.cell,CADETBLUE, DIMGREY, self.rect.left*0, self.rect.top*0, 30)
         for i in range(self.size+2):
             for j in range(self.size+2):
                 self.draw_chip((i,j))
@@ -75,13 +74,13 @@ class Window(pygame.sprite.Sprite):
 
         self.field.swap(coords1,coords2)
 
-        move_sound.play()
+        #move_sound.play()
         self.draw_chip(coords1)
         self.draw_chip(coords2)
 
 
     def draw_score(self,screen):
-        draw_text(screen, str(self.field.score), 50, 20, 20)
+        draw_text(screen, str(self.field.score), 50, 50, 20)
 
 
     def fall(self):
@@ -122,11 +121,14 @@ class Window(pygame.sprite.Sprite):
                 if not self.field.walk_the_line(coords2):
                     f2=True
                 if f1 and f2:
+                    no_sound.play()
                     self.swap(coords1, coords2)
                 else:
+                    move_sound.play()
                     self.comatose=True
-
+                    fall_sound.play()
             else:
+                no_sound.play()
                 self.draw_chip(coords1)
 
         else:

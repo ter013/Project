@@ -21,7 +21,16 @@ all_sprites.add(s)
 
 pygame.mixer.music.play(loops=-1)
 running = True
+score=0
+flag1=True
+flag2=True
+flag3=True
+
 while running:
+
+    if s.comatose and not score:
+        score=s.field.score
+        print("!")
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -30,6 +39,22 @@ while running:
             all_sprites.update(event)
 
     all_sprites.update()
+
+    if not s.comatose and score and s.field.score-score>=5:
+        print("!!!!")
+        wow_sound.play()
+    if score and not s.comatose:
+        score=0
+    if s.field.score>=50 and flag1:
+        sound_1.play()
+        flag1=False
+    if s.field.score>=100 and flag2:
+        sound_2.play()
+        flag2=False
+    if s.field.score>=500 and flag3:
+        sound_3.play()
+        flag3=False
+
     screen.fill(WHITE)
     s.draw_score(screen)
     s.draw_field()

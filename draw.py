@@ -1534,9 +1534,7 @@ def draw_pole(surf, n, a, color1, color2, x, y, b):
     :param y: координата левого верхнего угла поля по оси y
     :param b: размер узора
     '''
-
     pygame.draw.rect(surf, color1,(int(x), int(y), int(n * a), int(n * a)))
-
     for i in range(0, n + 1, 1):
         for j in range(0, n, 1):
             pygame.draw.line(surf, color2, (int(x + j * a + 0.65 * b), int(y + i * a)),
