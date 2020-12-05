@@ -24,7 +24,7 @@ class Window(pygame.sprite.Sprite):
 
         self.size=Field_size
         self.cell=CELL_SIZE
-        self.field=Field(size,CELL_SIZE,CELL_SIZE,boom_sound)
+        self.field=Field(size,CELL_SIZE,CELL_SIZE)
 
         self.move_sound=move_sound
 
@@ -32,9 +32,10 @@ class Window(pygame.sprite.Sprite):
 
         self.comatose=False
 
+
     def draw_field(self):
         #Нарисовать поле
-        draw_pole(self.image, self.size, self.cell,CADETBLUE, DIMGREY, self.rect.left*0, self.rect.top*0,10)
+        draw_pole(self.image, self.size, self.cell,CADETBLUE, DIMGREY, self.rect.left*0, self.rect.top*0,30)
 
         for i in range(self.size+2):
             for j in range(self.size+2):
@@ -114,13 +115,17 @@ class Window(pygame.sprite.Sprite):
             coords2=self.search_the_square(event)
             self.fill_square(coords1, WHITE)
 
-            if abs(coords1[0]-coords2[0])+abs(coords1[1]-coords2[1])<=1:
+            if abs(coords1[0]-coords2[0])+abs(coords1[1]-coords2[1])==1:
                 self.swap(coords1, coords2)
-                if not self.field.walk_the_line(coords1) and not self.field.walk_the_line(coords2):
+                f1=f2=False
+                if not self.field.walk_the_line(coords1):
+                    f1=True
+                if not self.field.walk_the_line(coords2):
+                    f2=True
+                if f1 and f2:
                     self.swap(coords1, coords2)
-
-                self.comatose=True
-                #self.draw_field()
+                else:
+                    self.comatose=True
 
             else:
                 self.draw_chip(coords1)
@@ -133,8 +138,6 @@ class Window(pygame.sprite.Sprite):
             if flag:
                 flag=False
                 self.fill_square(self.touch_square,BLACK)
-        if self.field.score == 50:
-            draw_text(screen, 'AWESOME', 50, 50, 20)
 
 
 font_name = pygame.font.match_font('arial')

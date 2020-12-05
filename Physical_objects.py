@@ -21,10 +21,11 @@ class Ball:
         else:
             self.cristall=(bonus%5==0)
             bonus = rnd.randint(0, 70)
-            self.bomb=(bonus==1)
-            self.cross=(bonus==2)
+            self.bomb=(bonus==0)
+            self.cross=(bonus==1)
             bonus = rnd.randint(0, 70)
             self.rainbow=(bonus%20==0)
+            self.cristall=self.cristall and not self.rainbow
 
     def draw(self, screen):
         "Рисуем шарик"
@@ -43,15 +44,16 @@ class wave:
 
 
 class Field:
-    def __init__(self, n, w, h,boom_sound):
+    def __init__(self, n, w, h):
         self.n = n
         self.w=w
         self.h=h
         self.massive=[[Ball(i*self.h-self.w//2,j*self.h-self.h//2,self.h//2,BLACK,1 if(i==0 or j==0 or i==n+1 or j==n+1) else 0)
                        for j in range(n+2)] for i in range(n+2)]
-        self.score=0
-        self.create_balls()
-        self.boom_sound = boom_sound
+        self.score = 0
+        while self.check():
+            self.create_balls()
+        self.score = 0
 
     def create_balls(self):
         global Colors
@@ -89,7 +91,7 @@ class Field:
     def check(self):
         for i in range(1,self.n+1):
             for j in range(1,self.n+1):
-                if self.massive[i][j].live:
+                if self.massive[i][j].live and not self.massive[i][j].rainbow:
                     self.walk_the_line((i,j))
 
         for i in range(1, self.n + 1):
@@ -99,6 +101,17 @@ class Field:
 
         return False
 
+    def kill_the_rainbow(self,x0,y0):
+        self.massive[x0][y0].rainbow=False
+        flag=False
+        for c in Colors:
+            self.massive[x0][y0].color=c
+            flag = flag or self.walk_the_line((x0,y0))
+        if not flag:
+            self.massive[x0][y0].rainbow=True
+        return flag
+
+
     def walk_the_line(self,coords):
         x0=coords[0]
         y0=coords[1]
@@ -106,12 +119,11 @@ class Field:
         self.massive[x0][y0].live=False
         current_color=self.massive[x0][y0].color
         go=[wave(1,0),wave(-1,0),wave(0,1),wave(0,-1),]
-        if self.massive[x0][y0].rainbow:
 
-            for g in go:
-                if(x0+g.x>=1 and x0+g.x<=self.n and y0+g.y>=1 and y0+g.y<=n):
-                    self.walk_the_line((x0+g.x,y0+g.y))
-            return
+        if self.massive[x0][y0].rainbow:
+            return self.kill_the_rainbow(x0,y0)
+
+
         for v in vol:
             for g in go:
                 #print(self.massive[v.x][v.y].color, self.massive[v.x+g.x][v.y+g.y].color)
@@ -129,28 +141,28 @@ class Field:
                 self.massive[v.x][v.y].live=True
             return False
 
-    def kill(self,x,y):
+    def kill(self,x,y,activate_cross=True,activate_bomb=True):
         self.massive[x][y].live = False
         current_chip = self.massive[x][y]
         self.score += current_chip.cristall
-        if current_chip.bomb:
+        if current_chip.bomb and activate_bomb:
             self.bomb_bonus(x,y)
-        if current_chip.cross:
+        if current_chip.cross and activate_cross:
             self.cross_bonus(x,y)
 
     def bomb_bonus(self,x,y):
         deltax=[0,1,-1,2,-2]
         deltay=[0,1,-1,2,-2]
-        self.boom_sound.play()
+
         for dx in deltax:
             for dy in deltay:
                 if x+dx<=0 or x+dx>=self.n+1 or y+dy<=0 or y+dy>=self.n+1 or not self.massive[x+dx][y+dy].live:
                     continue
-                self.kill(x+dx,y+dy)
+                self.kill(x+dx,y+dy,False)
 
     def cross_bonus(self,x,y):
         for i in range(1,self.n+1):
             if self.massive[x][i].live:
-                self.kill(x,i)
+                self.kill(x,i,False,False)
             if self.massive[i][y].live:
-                self.kill(i,y)
+                self.kill(i,y,False,False)
