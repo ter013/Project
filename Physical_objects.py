@@ -106,11 +106,14 @@ class Field:
         current_color=self.massive[x0][y0].color
         go=[wave(1,0),wave(-1,0),wave(0,1),wave(0,-1),]
         if self.massive[x0][y0].rainbow:
-            for g in go:
-                self.walk_the_line((x0+g.x,y0+g.y))
 
+            for g in go:
+                if(x0+g.x>=1 and x0+g.x<=self.n and y0+g.y>=1 and y0+g.y<=n):
+                    self.walk_the_line((x0+g.x,y0+g.y))
+            return
         for v in vol:
             for g in go:
+                #print(self.massive[v.x][v.y].color, self.massive[v.x+g.x][v.y+g.y].color)
                 if (self.massive[v.x+g.x][v.y+g.y].color==current_color or self.massive[v.x+g.x][v.y+g.y].rainbow) \
                         and self.massive[v.x+g.x][v.y+g.y].live:
                     vol+=[wave(v.x+g.x,v.y+g.y)]
