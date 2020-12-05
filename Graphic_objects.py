@@ -1,4 +1,3 @@
-
 from Physical_objects import *
 from Colors import *
 from draw import *
@@ -29,16 +28,13 @@ class Window(pygame.sprite.Sprite):
 
         self.move_sound=move_sound
 
-        for i in range(Field_size):
-            pygame.draw.line(self.image,BLACK, (i*CELL_SIZE,0) , (i*CELL_SIZE,HEIGHT))
-            pygame.draw.line(self.image,BLACK, (0,i*CELL_SIZE) ,(WIDTH ,i*CELL_SIZE))
-
         self.draw_field()
 
         self.comatose=False
 
     def draw_field(self):
         #Нарисовать поле
+        draw_pole(self.image, self.size, self.cell,CADETBLUE, DIMGREY, self.rect.left*0, self.rect.top*0,10)
 
         for i in range(self.size+2):
             for j in range(self.size+2):
@@ -94,7 +90,7 @@ class Window(pygame.sprite.Sprite):
 
         if self.field.update():
             self.draw_field()
-            clock.tick(3)
+            clock.tick()
         else:
 
             self.comatose=False
@@ -124,7 +120,7 @@ class Window(pygame.sprite.Sprite):
                     self.swap(coords1, coords2)
 
                 self.comatose=True
-                self.draw_field()
+                #self.draw_field()
 
             else:
                 self.draw_chip(coords1)
@@ -137,10 +133,6 @@ class Window(pygame.sprite.Sprite):
             if flag:
                 flag=False
                 self.fill_square(self.touch_square,BLACK)
-
-        for i in range(self.size):
-            pygame.draw.line(self.image,BLACK, (i*self.cell,0) , (i*self.cell,self.height))
-            pygame.draw.line(self.image,BLACK, (0,i*self.cell) ,(self.width ,i*self.cell))
 
 
 font_name = pygame.font.match_font('arial')

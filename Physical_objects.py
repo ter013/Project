@@ -1,8 +1,9 @@
 import random as rnd
 import pygame
 from Colors import *
+from draw import *
 
-Colors=[RED, BLUE, YELLOW, GREEN, AQUAMARINE, ORANGE]
+Colors=[RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE, DIMGREY]
 
 class Ball:
     "фишечка"
@@ -11,26 +12,26 @@ class Ball:
         self.y = y
         self.r = r
         self.color = color
-        self.cristall=True
         self.live = bool(live)
         self.type="ball"
 
         bonus=rnd.randint(0,70)
-        self.bomb=(bonus==0)
-        self.cross=(bonus==1)
-        self.rainbow=(bonus==2)
+        if color==BLACK:
+            self.cristall=self.bomb=self.cross=self.rainbow=False
+        else:
+            self.cristall=(bonus%5==0)
+            bonus = rnd.randint(0, 70)
+            self.bomb=(bonus==1)
+            self.cross=(bonus==2)
+            bonus = rnd.randint(0, 70)
+            self.rainbow=(bonus%20==0)
 
     def draw(self, screen):
         "Рисуем шарик"
         if not self.live:
-            pygame.draw.circle(screen, WHITE, (self.x, self.y), self.r)
             return
-        pygame.draw.circle(screen, self.color, (self.x,self.y), self.r)
-        if self.bomb:
-            pygame.draw.circle(screen, BLACK, (self.x, self.y), self.r)
-            pygame.draw.circle(screen, self.color, (self.x, self.y), self.r//2)
-        if self.cross:
-            pygame.draw.circle(screen, BLACK, (self.x, self.y), self.r//2)
+        beautiful_draw(screen, self.x-self.r, self.y-self.r, 2*self.r, self.color,
+                       self.cristall,self.rainbow, int(self.bomb)+int(self.cross)*2)
 
         "Потом надо засунуть фишки Лехи"
 
@@ -56,9 +57,9 @@ class Field:
         for i in range(1,self.n+1):
             for j in range(1,self.n+1):
                 if not self.massive[i][j].live:
-                    t= rnd.randint(0, 5)
+                    t= rnd.randint(0, len(Colors)-1)
                     while (self.massive[i][j-1].color==Colors[t] or self.massive[i-1][j].color==Colors[t]):
-                        t = rnd.randint(0, 5)
+                        t = rnd.randint(0, len(Colors)-1)
                     self.massive[i][j]=Ball(i*self.w-self.w//2,j*self.h-self.h//2,self.h//2,Colors[t])
 
     def update(self):
@@ -104,14 +105,18 @@ class Field:
         self.massive[x0][y0].live=False
         current_color=self.massive[x0][y0].color
         go=[wave(1,0),wave(-1,0),wave(0,1),wave(0,-1),]
+        if self.massive[x0][y0].rainbow:
+            for g in go:
+                self.walk_the_line((x0+g.x,y0+g.y))
+
         for v in vol:
             for g in go:
-                if self.massive[v.x+g.x][v.y+g.y].color==current_color and self.massive[v.x+g.x][v.y+g.y].live:
+                if (self.massive[v.x+g.x][v.y+g.y].color==current_color or self.massive[v.x+g.x][v.y+g.y].rainbow) \
+                        and self.massive[v.x+g.x][v.y+g.y].live:
                     vol+=[wave(v.x+g.x,v.y+g.y)]
                     self.massive[v.x + g.x][v.y + g.y].live=False
 
         if len(vol)>=3:
-            current_score=0
             for v in vol:
                 self.kill(v.x,v.y)
             return True
@@ -130,12 +135,12 @@ class Field:
             self.cross_bonus(x,y)
 
     def bomb_bonus(self,x,y):
-        deltax=[0,1,-1]
-        deltay=[0,1,-1]
+        deltax=[0,1,-1,2,-2]
+        deltay=[0,1,-1,2,-2]
 
         for dx in deltax:
             for dy in deltay:
-                if x+dx==0 or x+dx==self.n+1 or y+dy==0 or y+dy==self.n+1 or not self.massive[x+dx][y+dy].live:
+                if x+dx<=0 or x+dx>=self.n+1 or y+dy<=0 or y+dy>=self.n+1 or not self.massive[x+dx][y+dy].live:
                     continue
                 self.kill(x+dx,y+dy)
 
