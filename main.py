@@ -20,7 +20,7 @@ clock = pygame.time.Clock()
 snd_dir = path.join(path.dirname(__file__),'snd')
 
 move_sound = pygame.mixer.Sound(path.join(snd_dir, 'blip.wav'))
-pygame.mixer.music.load(path.join(snd_dir, 'Explosion.wav'))
+pygame.mixer.music.load(path.join(snd_dir, 'regression_cyclone_0.ogg'))
 pygame.mixer.music.set_volume(0.4)
 
 all_sprites = pygame.sprite.Group()
