@@ -2,8 +2,28 @@ from Physical_objects import *
 from Colors import *
 from draw import *
 from sounds import *
+from pravila import*
 
 clock = pygame.time.Clock()
+
+class Window_0(pygame.sprite.Sprite):
+    def __init__(self):
+        WIDTH = CELL_SIZE * Field_size
+        HEIGHT = CELL_SIZE * Field_size
+
+        self.width=WIDTH
+        self.height=HEIGHT
+
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.transform.scale(player_img, (700, 700))
+        self.image.fill(WHITE)
+        self.rect = self.image.get_rect()
+        self.rect.left = left
+        self.rect.top = top
+    def update:
+        
+        
+        
 
 class Window(pygame.sprite.Sprite):
     def __init__(self, size, Field_size, CELL_SIZE, left, top):
