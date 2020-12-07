@@ -7,6 +7,7 @@ clock = pygame.time.Clock()
 
 class Window(pygame.sprite.Sprite):
     def __init__(self, size, Field_size, CELL_SIZE, left, top):
+        "Cздание игрового поля"
         WIDTH = CELL_SIZE * Field_size
         HEIGHT = CELL_SIZE * Field_size
 
@@ -80,10 +81,12 @@ class Window(pygame.sprite.Sprite):
 
 
     def draw_score(self,screen):
+        # очки за выполнения действия
         draw_text(screen, str(self.field.score), 50, 50, 20)
 
 
     def fall(self):
+        #падение фишек после уничтожения рядов
         if not self.comatose:
             return
 
@@ -143,6 +146,7 @@ class Window(pygame.sprite.Sprite):
 
 font_name = pygame.font.match_font('arial')
 def draw_text(surf, text, size, x1, y1):
+    #текст
     font = pygame.font.Font(font_name, size)
     text_surface = font.render(text, True, BLACK)
     text_rect = text_surface.get_rect()
@@ -150,6 +154,7 @@ def draw_text(surf, text, size, x1, y1):
     surf.blit(text_surface, text_rect)
 
 def all_draw(all_sprites,screen,s):
+    #отрисовка
     all_sprites.update()
     screen.fill(WHITE)
     s.draw_score(screen)

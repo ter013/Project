@@ -158,7 +158,7 @@ class Field:
             self.cross_bonus(x,y)
 
     def bomb_bonus(self,x,y):
-        "Эффект бонусы"
+        "Эффект бомбы"
         deltax=[0,1,-1,2,-2]
         deltay=[0,1,-1,2,-2]
 
