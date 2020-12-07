@@ -35,7 +35,6 @@ class Ball:
         beautiful_draw(screen, self.x-self.r, self.y-self.r, 2*self.r, self.color,
                        self.cristall,self.rainbow, int(self.bomb)+int(self.cross)*2)
 
-        "Потом надо засунуть фишки Лехи"
 
 
 class wave:
@@ -57,7 +56,7 @@ class Field:
         self.score = 0
 
     def create_balls(self):
-        "Заполняем поле фишками"
+        "Заполняем пустые клетки фишками"
         global Colors
         for i in range(1,self.n+1):
             for j in range(1,self.n+1):
@@ -68,7 +67,7 @@ class Field:
                     self.massive[i][j]=Ball(i*self.w-self.w//2,j*self.h-self.h//2,self.h//2,Colors[t])
 
     def update(self):
-        "Создание новых фишек"
+        "падение фишек вниз"
         flag=False
         for i in range(self.n,0,-1):
             for j in range(1,self.n+1):
@@ -93,7 +92,7 @@ class Field:
             self.massive[coords2[0]][coords2[1]].cristall, self.massive[coords1[0]][coords1[1]].cristall
 
     def check(self):
-        "Проверка возможности уничтожения фишки"
+        "Проверка поля на возможность уничтожения фишек"
         for i in range(1,self.n+1):
             for j in range(1,self.n+1):
                 if self.massive[i][j].live and not self.massive[i][j].rainbow:
@@ -107,7 +106,7 @@ class Field:
         return False
 
     def kill_the_rainbow(self,x0,y0):
-        "Звездочка"
+        "уничтожить Звездочку"
         star_sound.play()
         self.massive[x0][y0].rainbow=False
         flag=False
@@ -119,7 +118,7 @@ class Field:
         return flag
 
     def walk_the_line(self,coords):
-        "Волновой алгоритм"
+        "Волновой алгоритм, проверяющий возможность уничтожения ряда, порожденного данной фишкой"
         x0=coords[0]
         y0=coords[1]
         vol=[wave(x0,y0)]
