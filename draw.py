@@ -11,8 +11,8 @@ font = pygame.font.Font('freesansbold.ttf', 14)
 from Colors import *
 
 FPS = 30
-screen = pygame.display.set_mode((800, 600))
-screen.fill(WHITE)
+'''screen = pygame.display.set_mode((800, 600))
+screen.fill(WHITE)'''
 
 
 def draw1(a, color1, color2, n, surface, k, alpha):
@@ -1945,7 +1945,7 @@ def beautiful_draw(surf,x ,y, a, color, cristall=False, rainbow=0, bonus=0):
 
 time = 4000
 time_0 = 4000
-while not finished:
+'''while not finished:
 
     clock.tick(FPS)
     draw_pole(screen, 4, 50, CADETBLUE, DIMGREY, 250, 100, 16)
@@ -1984,5 +1984,5 @@ while not finished:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             finished = True
-    pygame.display.update()
+    pygame.display.update()'''
 pygame.quit()

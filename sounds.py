@@ -6,7 +6,7 @@ snd_dir = path.join(path.dirname(__file__),'snd')
 
 pygame.init()
 pygame.mixer.init()
-
+#Звуки игровые
 explosion_sound=pygame.mixer.Sound(path.join(snd_dir, 'Explosion.wav'))
 move_sound = pygame.mixer.Sound(path.join(snd_dir, 'blip.wav'))
 wow_sound = pygame.mixer.Sound(path.join(snd_dir, 'wow for molnia.wav'))
@@ -16,8 +16,8 @@ sound_3 = pygame.mixer.Sound(path.join(snd_dir, '500.wav'))
 star_sound=pygame.mixer.Sound(path.join(snd_dir, 'star.wav'))
 fall_sound=pygame.mixer.Sound(path.join(snd_dir, 'fall.wav'))
 no_sound=pygame.mixer.Sound(path.join(snd_dir, 'no sound.wav'))
-
-#pygame.mixer.music.load(path.join(snd_dir, 'regression_cyclone_0.ogg'))
-pygame.mixer.music.load(path.join(snd_dir, 'Music.mp3'))
+#музыка
+pygame.mixer.music.load(path.join(snd_dir, 'regression_cyclone_0.ogg'))
+#pygame.mixer.music.load(path.join(snd_dir, 'Music.mp3'))
 
 pygame.mixer.music.set_volume(0.3)

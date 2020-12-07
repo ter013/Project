@@ -57,6 +57,7 @@ class Field:
         self.score = 0
 
     def create_balls(self):
+        "Заполняем поле фишками"
         global Colors
         for i in range(1,self.n+1):
             for j in range(1,self.n+1):
@@ -67,6 +68,7 @@ class Field:
                     self.massive[i][j]=Ball(i*self.w-self.w//2,j*self.h-self.h//2,self.h//2,Colors[t])
 
     def update(self):
+        "Создание новых фишек"
         flag=False
         for i in range(self.n,0,-1):
             for j in range(1,self.n+1):
@@ -78,6 +80,7 @@ class Field:
         return flag
 
     def swap(self,coords1,coords2):
+        "обмен позиций фишек"
         self.massive[coords1[0]][coords1[1]].color, self.massive[coords2[0]][coords2[1]].color = \
             self.massive[coords2[0]][coords2[1]].color, self.massive[coords1[0]][coords1[1]].color
         self.massive[coords1[0]][coords1[1]].bomb, self.massive[coords2[0]][coords2[1]].bomb = \
@@ -90,6 +93,7 @@ class Field:
             self.massive[coords2[0]][coords2[1]].cristall, self.massive[coords1[0]][coords1[1]].cristall
 
     def check(self):
+        "Проверка возможности уничтожения фишки"
         for i in range(1,self.n+1):
             for j in range(1,self.n+1):
                 if self.massive[i][j].live and not self.massive[i][j].rainbow:
@@ -103,6 +107,7 @@ class Field:
         return False
 
     def kill_the_rainbow(self,x0,y0):
+        "Звездочка"
         star_sound.play()
         self.massive[x0][y0].rainbow=False
         flag=False
@@ -114,6 +119,7 @@ class Field:
         return flag
 
     def walk_the_line(self,coords):
+        "Волновой алгоритм"
         x0=coords[0]
         y0=coords[1]
         vol=[wave(x0,y0)]
@@ -142,6 +148,7 @@ class Field:
             return False
 
     def kill(self,x,y,activate_cross=True,activate_bomb=True):
+        "Уничтожить фишку"
         self.massive[x][y].live = False
         current_chip = self.massive[x][y]
         self.score += current_chip.cristall
@@ -151,6 +158,7 @@ class Field:
             self.cross_bonus(x,y)
 
     def bomb_bonus(self,x,y):
+        "Эффект бонусы"
         deltax=[0,1,-1,2,-2]
         deltay=[0,1,-1,2,-2]
 
@@ -163,6 +171,7 @@ class Field:
         explosion_sound.play()
 
     def cross_bonus(self,x,y):
+        "Эффект молнии"
         for i in range(1,self.n+1):
             if self.massive[x][i].live:
                 self.kill(x,i,False,False)
