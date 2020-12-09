@@ -16,8 +16,9 @@ screen.fill(WHITE)
 clock = pygame.time.Clock()
 
 all_sprites = pygame.sprite.Group()
-s = Window(Field_size, Field_size, CELL_SIZE, LEFT, TOP)
-all_sprites.add(s)
+Play_window = Window(Field_size, Field_size, CELL_SIZE, LEFT, TOP)
+
+#all_sprites.add(Play_window)
 
 pygame.mixer.music.play(loops=-1)
 running = True
@@ -28,9 +29,8 @@ flag3=True
 
 while running:
 
-    if s.comatose and not score:
-        score=s.field.score
-        print("!")
+    if Play_window.comatose and not score:
+        score=Play_window.field.score
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -40,24 +40,24 @@ while running:
 
     all_sprites.update()
 
-    if not s.comatose and score and s.field.score-score>=5:
-        print("!!!!")
+    if not Play_window.comatose and score and Play_window.field.score-score>=5:
         wow_sound.play()
-    if score and not s.comatose:
+    if score and not Play_window.comatose:
         score=0
-    if s.field.score>=50 and flag1:
+    if Play_window.field.score>=50 and flag1:
         sound_1.play()
         flag1=False
-    if s.field.score>=100 and flag2:
+    if Play_window.field.score>=100 and flag2:
         sound_2.play()
         flag2=False
-    if s.field.score>=500 and flag3:
+    if Play_window.field.score>=500 and flag3:
         sound_3.play()
         flag3=False
 
     screen.fill(WHITE)
-    s.draw_score(screen)
-    s.draw_field()
+    draw_background(screen,WIDTH,HEIGHT,Field_size,CELL_SIZE,LEFT,TOP)
+    Play_window.draw_score(screen)
+    Play_window.draw_field()
     all_sprites.draw(screen)
     pygame.display.flip()
-    s.fall()
+    Play_window.fall()
