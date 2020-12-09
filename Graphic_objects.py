@@ -21,6 +21,7 @@ class Window_0(pygame.sprite.Sprite):
         self.rect.left = left
         self.rect.top = top
     def update:
+        pass
         
         
         
