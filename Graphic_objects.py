@@ -258,4 +258,4 @@ def draw_rules(surf, WIDTH, HEIGHT):
     beautiful_draw(surf, left * 16, size * 11, size * 3, PURPLE, False, False, 2)
     draw_text(surf, "Звезда имеет одновременно все цвета", int(size*0.8), left, 15*size)
     beautiful_draw(surf, left * 9, size * 14, size * 3, RED, False, True)
-    draw_text(surf, "Пpиятной игры, малолетние дебилы", int(size*0.8), left, 18*size)
+    draw_text(surf, "Пpиятной игры!", int(size*0.8), left, 18*size)
