@@ -3,7 +3,7 @@ import pygame
 from Graphic_objects import *
 
 Field_size = 10
-CELL_SIZE = 70
+CELL_SIZE = 65
 LEFT=300
 TOP=70
 FPS=30

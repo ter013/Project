@@ -242,7 +242,13 @@ def draw_rules(surf, WIDTH, HEIGHT):
     size=HEIGHT//20
     left=WIDTH//20
     draw_text(surf, "ПРАВИЛА", size, left*10, 0, True)
-    draw_text(surf,"Передвигайте фишки, чтобы собрать линию  из фишек одного цвета.(необязательно прямую)",int(size*0.8),left,size)
+    draw_text(surf,"Передвигайте фишки, чтобы собрать линию",int(size*0.8),left,size)
+    draw_text(surf, "из фишек одного цвета.(необязательно прямую)",int(size * 0.8), left,3 * size)
+    beautiful_draw(surf, left * 11, size * 3, size * 2, GREEN, False)
+    beautiful_draw(surf, left * 12, size * 3, size * 2, GREEN, True)
+    beautiful_draw(surf, left * 12, size * 3-left, size * 2, GREEN, False)
+    beautiful_draw(surf, left * 13, size * 3-left, size * 2, GREEN, True)
+    beautiful_draw(surf, left * 14, size * 3 - left, size * 2, GREEN, True)
     draw_text(surf, "Очки даются только за фишки с кристаллом и звезды", int(size*0.8), left, 6*size)
     beautiful_draw(surf, left * 12, size * 5, size * 3, RED, False)
     beautiful_draw(surf, left * 14, size * 5, size * 3, RED, True)
