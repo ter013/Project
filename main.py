@@ -64,7 +64,8 @@ while running:
     screen.fill(WHITE)
     draw_background(screen, WIDTH, HEIGHT, Field_size, CELL_SIZE, LEFT, TOP, pause)
     if pause:
-        rulls_button
+        rulls_button.draw(pause)
+        draw_rules(screen, WIDTH, HEIGHT)
     if not pause:
         all_draw(all_sprites,screen,Play_window,rulls_button,pause)
 

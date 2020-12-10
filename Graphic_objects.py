@@ -44,7 +44,7 @@ class button(pygame.sprite.Sprite):
         if pause:
             draw_text(self.image,"BACK",int(self.height*0.7),self.width//2,0*self.height//2)
         else:
-            draw_text(self.image, "RULLS", int(self.height*0.7),self.width//2,0*self.height//2)
+            draw_text(self.image, "RULES", int(self.height*0.7),self.width//2,0*self.height//2)
 
     def update(self, event=0):
         if not event:
@@ -233,3 +233,12 @@ def all_draw(all_sprites,screen,Play_window,rulls_botton,pause):
     Play_window.fall()
     all_sprites.draw(screen)
     #pygame.display.flip()
+
+def draw_rules(surf, WIDTH, HEIGHT):
+    draw_text(surf, "ПРАВИЛА", 10, 0, 0)
+    draw_text(surf,"Передвигайте фишки, чтобы собрать линию из фишек одного цвета.(необязательно прямую)",10,0,0)
+    draw_text(surf, "Очки даются только за фишки с кристаллом", 10, 0, 20)
+    draw_text(surf, "Фишки с динамитом взрывают вокруг себя область 5 на 5 ", 10, 0, 40)
+    draw_text(surf, "Фишки с молниями уничтожают линии крестом.(свою строку и столбец)", 10, 0, 60)
+    draw_text(surf, "Звезда имеет одновременно все цвета", 10, 0, 80)
+    draw_text(surf, "Пиятной игры малолетние дебилы", 10, 0, 100)
