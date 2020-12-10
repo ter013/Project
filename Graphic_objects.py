@@ -25,6 +25,26 @@ class Window_0(pygame.sprite.Sprite):
         pass
         
 
+class button(pygame.sprite.Sprite):
+    def __init__(self, width, height, left, top):
+        "Cздание кнопки правил"
+
+        self.width=width
+        self.height=height
+
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.Surface((width, height))
+        self.image.fill(WHITE)
+        self.rect = self.image.get_rect()
+        self.rect.left = left
+        self.rect.top = top
+
+    def update(self, event=0):
+        if not event:
+            return False
+
+
+
 
 class Window(pygame.sprite.Sprite):
     def __init__(self, size, Field_size, CELL_SIZE, left, top):
@@ -161,6 +181,10 @@ class Window(pygame.sprite.Sprite):
         else:
 
             self.touch_square=self.search_the_square(event)
+            if self.touch_square==None:
+                self.touch_square=(-1,-1)
+                self.touch_number=0
+                return
             self.color = WHITE
             flag=(event.type == pygame.MOUSEBUTTONUP)
             if flag:

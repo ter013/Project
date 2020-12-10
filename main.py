@@ -18,7 +18,8 @@ clock = pygame.time.Clock()
 
 all_sprites = pygame.sprite.Group()
 Play_window = Window(Field_size, Field_size, CELL_SIZE, LEFT, TOP)
-
+rulls_button = button(LEFT//2,TOP , LEFT+WIDTH+LEFT/4, TOP+HEIGHT-TOP//2)
+all_sprites.add(rulls_button)
 all_sprites.add(Play_window)
 
 pygame.mixer.music.play(loops=-1)
@@ -27,6 +28,8 @@ score=0
 flag1=True
 flag2=True
 flag3=True
+pause=False
+
 
 while running:
 
@@ -39,7 +42,6 @@ while running:
         if event.type == pygame.MOUSEBUTTONUP:
             all_sprites.update(event)
 
-    all_sprites.update()
 
     if not Play_window.comatose and score and Play_window.field.score-score>=5:
         wow_sound.play()
@@ -55,11 +57,13 @@ while running:
         sound_3.play()
         flag3=False
 
-    screen.fill(WHITE)
-    draw_background(screen,WIDTH,HEIGHT,Field_size,CELL_SIZE,LEFT,TOP)
-    Play_window.draw_score(screen)
-    Play_window.draw_field()
-    all_sprites.draw(screen)
-    pygame.display.flip()
-    Play_window.fall()
-    clock.tick(FPS)
+    draw_background(screen, WIDTH, HEIGHT, Field_size, CELL_SIZE, LEFT, TOP)
+    
+    if not pause:
+        all_sprites.update()
+        Play_window.draw_score(screen)
+        Play_window.draw_field()
+        all_sprites.draw(screen)
+        pygame.display.flip()
+        Play_window.fall()
+        clock.tick(FPS)
