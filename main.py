@@ -40,8 +40,12 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.MOUSEBUTTONUP:
-            all_sprites.update(event)
-
+            if not pause:
+                all_sprites.update(event)
+            else:
+                pause=False
+            if rulls_button.update(event):
+                pause=True
 
     if not Play_window.comatose and score and Play_window.field.score-score>=5:
         wow_sound.play()
@@ -57,13 +61,16 @@ while running:
         sound_3.play()
         flag3=False
 
-    draw_background(screen, WIDTH, HEIGHT, Field_size, CELL_SIZE, LEFT, TOP)
-    
+    screen.fill(WHITE)
+    draw_background(screen, WIDTH, HEIGHT, Field_size, CELL_SIZE, LEFT, TOP, pause)
+    if pause:
+        pass
     if not pause:
         all_sprites.update()
         Play_window.draw_score(screen)
         Play_window.draw_field()
         all_sprites.draw(screen)
-        pygame.display.flip()
         Play_window.fall()
-        clock.tick(FPS)
+
+    pygame.display.flip()
+    clock.tick(FPS)

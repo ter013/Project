@@ -42,8 +42,13 @@ class button(pygame.sprite.Sprite):
     def update(self, event=0):
         if not event:
             return False
-
-
+        if event.type==pygame.MOUSEBUTTONUP:
+            x=event.pos[0]
+            y=event.pos[1]
+            if x>=self.rect.left and x<=self.rect.left+self.width \
+                and y>=self.rect.top and y<=self.rect.top+self.height:
+                return True
+        return False
 
 
 class Window(pygame.sprite.Sprite):
@@ -202,14 +207,15 @@ def draw_text(surf, text, size, x1, y1):
     text_rect.midtop = (x1, y1)
     surf.blit(text_surface, text_rect)
 
-def draw_background(surf, WIDTH, HEIGHT, size, CELL_SIZE,LEFT,TOP):
+def draw_background(surf, WIDTH, HEIGHT, size, CELL_SIZE,LEFT,TOP,pause=False):
     color1=DARKGREY
     color2=DIMGREY
     if WIDTH>HEIGHT:
         draw_pole(surf, WIDTH//CELL_SIZE, 2*CELL_SIZE, color1, color2, 0, HEIGHT - WIDTH, 60)
     else:
         draw_pole(surf, HEIGHT // CELL_SIZE, 2 * CELL_SIZE, color1, color2, 0, WIDTH-HEIGHT, 50)
-    draw_pole(surf, size, CELL_SIZE, RED, DARKGREY, LEFT, TOP, 30)
+    if not pause:
+        draw_pole(surf, size, CELL_SIZE, RED, DARKGREY, LEFT, TOP, 30)
 
 def all_draw(all_sprites,screen,s):
     #отрисовка
