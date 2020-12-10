@@ -57,6 +57,8 @@ class Window(pygame.sprite.Sprite):
     def draw_field(self,):
         #Нарисовать поле
         draw_pole(self.image, self.size, self.cell,CADETBLUE, DIMGREY, self.rect.left*0, self.rect.top*0, 30)
+        draw_pole_without_border(self.image, 1, self.cell, LIMEGREEN, DIMGREY, (self.touch_square[0]-1) * self.cell,
+                                                                         (self.touch_square[1]-1) * self.cell, 30)
         for i in range(self.size+2):
             for j in range(self.size+2):
                 self.draw_chip((i,j))
@@ -136,6 +138,7 @@ class Window(pygame.sprite.Sprite):
             coords1=self.touch_square
             coords2=self.search_the_square(event)
             self.fill_square(coords1, WHITE)
+            self.touch_square=(-1,-1)
 
             if abs(coords1[0]-coords2[0])+abs(coords1[1]-coords2[1])==1:
                 self.swap(coords1, coords2)

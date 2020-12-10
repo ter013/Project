@@ -1523,6 +1523,18 @@ def draw_border2(surf, x, y, background_color, spiral_color, b, n):
                                                   [int(x + 1.6 * b), int(y + 0.5 * b - (-1) ** n * 0.1 * b)],
                                                   [int(x + 1.6 * b), int(y + 0.5 * b + (-1) ** n * 0.1 * b)]])
 
+def draw_pole_without_border(surf, n, a, color1, color2, x, y, b):
+    pygame.draw.rect(surf, color1, (int(x), int(y), int(n * a), int(n * a)))
+    for i in range(0, n + 1, 1):
+        for j in range(0, n, 1):
+            pygame.draw.line(surf, color2, (int(x + j * a + 0.65 * b), int(y + i * a)),
+                             (int(x + (j + 1) * a - 0.65 * b), int(y + i * a)), 2)
+            pygame.draw.line(surf, color2, (int(x + i * a), int(y + j * a + 0.65 * b)),
+                             (int(x + i * a), int(y + (j + 1) * a - 0.65 * b)), 2)
+    for i in range(0, n + 1, 1):
+        for j in range(0, n + 1, 1):
+            draw_uzor(surf, x + i * a, y + j * a, b)
+
 def draw_pole(surf, n, a, color1, color2, x, y, b):
     '''
     красивое оформление поля
