@@ -42,9 +42,9 @@ class button(pygame.sprite.Sprite):
     def draw(self,pause):
         self.image.fill(DIMGREY)
         if pause:
-            draw_text(self.image,"BACK",int(self.height*0.7),self.width//2,0*self.height//2)
+            draw_text(self.image,"BACK",int(self.height*0.7),0*self.width//2,0*self.height//2)
         else:
-            draw_text(self.image, "RULES", int(self.height*0.7),self.width//2,0*self.height//2)
+            draw_text(self.image, "RULES", int(self.height*0.7),0*self.width//2,0*self.height//2)
 
     def update(self, event=0):
         if not event:
@@ -206,21 +206,25 @@ class Window(pygame.sprite.Sprite):
 
 
 font_name = pygame.font.match_font('arial')
-def draw_text(surf, text, size, x1, y1):
+def draw_text(surf, text, size, x1, y1, midtop=False):
     #текст
     font = pygame.font.Font(font_name, size)
     text_surface = font.render(text, True, BLACK)
     text_rect = text_surface.get_rect()
-    text_rect.midtop = (x1, y1)
+    if midtop:
+        text_rect.midtop = (x1,y1)
+    else:
+        text_rect.left = x1
+        text_rect.top = y1
     surf.blit(text_surface, text_rect)
 
 def draw_background(surf, WIDTH, HEIGHT, size, CELL_SIZE,LEFT,TOP,pause=False):
     color1=DARKGREY
     color2=DIMGREY
     if WIDTH>HEIGHT:
-        draw_pole(surf, WIDTH//CELL_SIZE, 2*CELL_SIZE, color1, color2, 0, HEIGHT - WIDTH, 60)
+        draw_pole(surf, WIDTH//CELL_SIZE*2, 2*CELL_SIZE, color1, color2, 0, HEIGHT - WIDTH, 60)
     else:
-        draw_pole(surf, HEIGHT // CELL_SIZE, 2 * CELL_SIZE, color1, color2, 0, WIDTH-HEIGHT, 50)
+        draw_pole(surf, HEIGHT // CELL_SIZE*2, 2 * CELL_SIZE, color1, color2, 0, WIDTH-HEIGHT, 50)
     if not pause:
         draw_pole(surf, size, CELL_SIZE, RED, DARKGREY, LEFT, TOP, 30)
 
@@ -235,10 +239,17 @@ def all_draw(all_sprites,screen,Play_window,rulls_botton,pause):
     #pygame.display.flip()
 
 def draw_rules(surf, WIDTH, HEIGHT):
-    draw_text(surf, "ПРАВИЛА", 10, 0, 0)
-    draw_text(surf,"Передвигайте фишки, чтобы собрать линию из фишек одного цвета.(необязательно прямую)",10,0,0)
-    draw_text(surf, "Очки даются только за фишки с кристаллом", 10, 0, 20)
-    draw_text(surf, "Фишки с динамитом взрывают вокруг себя область 5 на 5 ", 10, 0, 40)
-    draw_text(surf, "Фишки с молниями уничтожают линии крестом.(свою строку и столбец)", 10, 0, 60)
-    draw_text(surf, "Звезда имеет одновременно все цвета", 10, 0, 80)
-    draw_text(surf, "Пиятной игры малолетние дебилы", 10, 0, 100)
+    size=HEIGHT//20
+    left=WIDTH//20
+    draw_text(surf, "ПРАВИЛА", size, left*10, 0, True)
+    draw_text(surf,"Передвигайте фишки, чтобы собрать линию  из фишек одного цвета.(необязательно прямую)",int(size*0.8),left,size)
+    draw_text(surf, "Очки даются только за фишки с кристаллом и звезды", int(size*0.8), left, 6*size)
+    beautiful_draw(surf, left * 12, size * 5, size * 3, RED, False)
+    beautiful_draw(surf, left * 14, size * 5, size * 3, RED, True)
+    draw_text(surf, "Фишки с динамитом взрывают вокруг себя область 5 на 5 ", int(size*0.8), left, 9*size)
+    beautiful_draw(surf, left * 13, size * 8, size * 3, ORANGE, False, False, 1)
+    draw_text(surf, "Фишки с молниями уничтожают линии крестом.(свою строку и столбец)", int(size*0.8), left, 12*size)
+    beautiful_draw(surf, left * 16, size * 11, size * 3, PURPLE, False, False, 2)
+    draw_text(surf, "Звезда имеет одновременно все цвета", int(size*0.8), left, 15*size)
+    beautiful_draw(surf, left * 9, size * 14, size * 3, RED, False, True)
+    draw_text(surf, "Пpиятной игры, малолетние дебилы", int(size*0.8), left, 18*size)
