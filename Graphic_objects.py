@@ -39,6 +39,13 @@ class button(pygame.sprite.Sprite):
         self.rect.left = left
         self.rect.top = top
 
+    def draw(self,pause):
+        self.image.fill(DIMGREY)
+        if pause:
+            draw_text(self.image,"BACK",int(self.height*0.7),self.width//2,0*self.height//2)
+        else:
+            draw_text(self.image, "RULLS", int(self.height*0.7),self.width//2,0*self.height//2)
+
     def update(self, event=0):
         if not event:
             return False
@@ -217,10 +224,12 @@ def draw_background(surf, WIDTH, HEIGHT, size, CELL_SIZE,LEFT,TOP,pause=False):
     if not pause:
         draw_pole(surf, size, CELL_SIZE, RED, DARKGREY, LEFT, TOP, 30)
 
-def all_draw(all_sprites,screen,s):
+def all_draw(all_sprites,screen,Play_window,rulls_botton,pause):
     #отрисовка
     all_sprites.update()
-    screen.fill(WHITE)
-    s.draw_score(screen)
+    rulls_botton.draw(pause)
+    Play_window.draw_score(screen)
+    Play_window.draw_field()
+    Play_window.fall()
     all_sprites.draw(screen)
-    pygame.display.flip()
+    #pygame.display.flip()

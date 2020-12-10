@@ -64,13 +64,9 @@ while running:
     screen.fill(WHITE)
     draw_background(screen, WIDTH, HEIGHT, Field_size, CELL_SIZE, LEFT, TOP, pause)
     if pause:
-        pass
+        rulls_button
     if not pause:
-        all_sprites.update()
-        Play_window.draw_score(screen)
-        Play_window.draw_field()
-        all_sprites.draw(screen)
-        Play_window.fall()
+        all_draw(all_sprites,screen,Play_window,rulls_button,pause)
 
     pygame.display.flip()
     clock.tick(FPS)
