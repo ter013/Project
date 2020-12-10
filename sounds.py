@@ -16,6 +16,8 @@ sound_3 = pygame.mixer.Sound(path.join(snd_dir, '500.wav'))
 star_sound=pygame.mixer.Sound(path.join(snd_dir, 'star.wav'))
 fall_sound=pygame.mixer.Sound(path.join(snd_dir, 'fall.wav'))
 no_sound=pygame.mixer.Sound(path.join(snd_dir, 'no sound.wav'))
+cross_sound=pygame.mixer.Sound(path.join(snd_dir, 'blue.wav'))
+
 #музыка
 pygame.mixer.music.load(path.join(snd_dir, 'regression_cyclone_0.ogg'))
 #pygame.mixer.music.load(path.join(snd_dir, 'Music.mp3'))

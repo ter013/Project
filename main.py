@@ -4,8 +4,9 @@ from Graphic_objects import *
 
 Field_size = 10
 CELL_SIZE = 70
-LEFT=100
+LEFT=300
 TOP=70
+FPS=30
 
 WIDTH = CELL_SIZE * Field_size
 HEIGHT = CELL_SIZE * Field_size
@@ -18,7 +19,7 @@ clock = pygame.time.Clock()
 all_sprites = pygame.sprite.Group()
 Play_window = Window(Field_size, Field_size, CELL_SIZE, LEFT, TOP)
 
-#all_sprites.add(Play_window)
+all_sprites.add(Play_window)
 
 pygame.mixer.music.play(loops=-1)
 running = True
@@ -61,3 +62,4 @@ while running:
     all_sprites.draw(screen)
     pygame.display.flip()
     Play_window.fall()
+    clock.tick(FPS)

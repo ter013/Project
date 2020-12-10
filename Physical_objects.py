@@ -36,7 +36,6 @@ class Ball:
                        self.cristall,self.rainbow, int(self.bomb)+int(self.cross)*2)
 
 
-
 class wave:
     def __init__(self,x,y):
         self.x=x
@@ -176,3 +175,5 @@ class Field:
                 self.kill(x,i,False,False)
             if self.massive[i][y].live:
                 self.kill(i,y,False,False)
+
+        cross_sound.play()
