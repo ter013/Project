@@ -138,7 +138,7 @@ class Window(pygame.sprite.Sprite):
     def draw_score(self,screen,Finish_score):
         # очки за выполнения действия
         stone_heap(screen,self.rect.left//4, self.rect.top,self.cell )
-        draw_text(screen, str(self.field.score)+'/'+str(Finish_score), self.rect.left//6, self.rect.left//2, self.rect.top)
+        draw_text(screen, str(self.field.score)+'/'+str(Finish_score), self.rect.left//8, self.rect.left//2, self.rect.top,)
 
 
     def fall(self):

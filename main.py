@@ -9,7 +9,7 @@ LEFT=300
 TOP=70
 FPS=30
 Game_time=60
-Finish_score=50
+Finish_score=100
 
 WIDTH = CELL_SIZE * Field_size
 HEIGHT = CELL_SIZE * Field_size
