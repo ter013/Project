@@ -88,7 +88,7 @@ class Window(pygame.sprite.Sprite):
 
     def draw_field(self,):
         #Нарисовать поле
-        draw_pole(self.image, self.size, self.cell,CADETBLUE, DIMGREY, self.rect.left*0, self.rect.top*0, 30)
+        draw_pole(self.image, self.size, self.cell,CADETBLUE, DIMGREY, self.rect.left*0, self.rect.top*0, self.cell//2)
         draw_pole_without_border(self.image, 1, self.cell, LIMEGREEN, DIMGREY, (self.touch_square[0]-1) * self.cell,
                                                                          (self.touch_square[1]-1) * self.cell, 30)
         for i in range(self.size+2):

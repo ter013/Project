@@ -3,8 +3,8 @@ import pygame
 from Graphic_objects import *
 from Time_manager import *
 
-Field_size = 10
-CELL_SIZE = 60
+Field_size = 100
+CELL_SIZE = 2
 LEFT=300
 TOP=70
 FPS=30
