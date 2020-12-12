@@ -46,7 +46,7 @@ while running:
                 all_sprites.update(event)
             else:
                 pause=False
-                rules=True
+                rules=False
             if rulls_button.update(event):
                 pause=True
                 rules=True
@@ -78,7 +78,7 @@ while running:
         if rules:
             draw_rules(screen, WIDTH+2*LEFT, HEIGHT+2*TOP)
         else:
-            draw_text(screen, "PAUSE",HEIGHT//2,WIDTH//4,HEIGHT//4,False)
+            draw_pause(screen, WIDTH+2*LEFT, HEIGHT+2*TOP)
     if not pause:
         all_draw(all_sprites,screen,Play_window,[rulls_button,pause_button],pause)
 

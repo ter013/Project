@@ -260,3 +260,7 @@ def draw_rules(surf, WIDTH, HEIGHT):
     draw_text(surf, "Звезда имеет одновременно все цвета", int(size*0.8), left, 15*size)
     beautiful_draw(surf, left * 9, size * 14, size * 3, RED, False, True)
     draw_text(surf, "Пpиятной игры!", int(size*0.8), left, 18*size)
+
+def draw_pause(surf, WIDTH, HEIGHT):
+    draw_text(surf, "PAUSE", HEIGHT // 2, WIDTH // 2, HEIGHT // 4, True)
+    draw_text(surf, "Для продолжения кликните мышкой", HEIGHT//10,WIDTH//2, HEIGHT//4*3,True )
