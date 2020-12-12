@@ -90,7 +90,7 @@ class Window(pygame.sprite.Sprite):
         #Нарисовать поле
         draw_pole(self.image, self.size, self.cell,CADETBLUE, DIMGREY, self.rect.left*0, self.rect.top*0, self.cell//2)
         draw_pole_without_border(self.image, 1, self.cell, LIMEGREEN, DIMGREY, (self.touch_square[0]-1) * self.cell,
-                                                                         (self.touch_square[1]-1) * self.cell, 30)
+                                                                         (self.touch_square[1]-1) * self.cell, self.cell//2)
         for i in range(self.size+2):
             for j in range(self.size+2):
                 self.draw_chip((i,j))
@@ -135,9 +135,10 @@ class Window(pygame.sprite.Sprite):
         self.draw_chip(coords2)
 
 
-    def draw_score(self,screen):
+    def draw_score(self,screen,Finish_score):
         # очки за выполнения действия
-        draw_text(screen, str(self.field.score), 50, 50, 20)
+        stone_heap(screen,self.rect.left//4, self.rect.top,self.cell )
+        draw_text(screen, str(self.field.score)+'/'+str(Finish_score), self.rect.left//6, self.rect.left//2, self.rect.top)
 
 
     def fall(self):
@@ -228,12 +229,12 @@ def draw_background(surf, WIDTH, HEIGHT, size, CELL_SIZE,LEFT,TOP,pause=False):
     if not pause:
         draw_pole(surf, size, CELL_SIZE, RED, DARKGREY, LEFT, TOP, CELL_SIZE//2)
 
-def all_draw(all_sprites,screen,Play_window,bottons,pause,Clocks):
+def all_draw(all_sprites,screen,Play_window,bottons,pause,Clocks,Finish_score):
     #отрисовка
     all_sprites.update()
     for botton in bottons:
         botton.draw(pause)
-    Play_window.draw_score(screen)
+    Play_window.draw_score(screen,Finish_score)
     Play_window.draw_field()
     Play_window.fall()
     all_sprites.draw(screen)

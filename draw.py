@@ -1964,6 +1964,16 @@ def beautiful_draw(surf, x, y, a, color, cristall=False, rainbow=0, bonus=0):
     if bonus == 2:
         draw_bonus_cross(surf, x_cristall, y_cristall, a // 2)
 
+def stone_heap(surf, x, y, a):
+    k=0.7
+    a=int(k * a / 3 * math.sqrt(2))
+    red_stone(a,surf,int(x*1.0),int(y*1.0))
+    orange_stone(a,surf,int(x*0.8),int(y*1.3))
+    yellow_stone(a, surf, int(x * 1.2), int(y * 1.3))
+    green_stone(a, surf, int(x * 0.6), int(y * 1.6))
+    blue_stone(a, surf, int(x * 1.0), int(y * 1.6))
+    purple_stone(a, surf, int(x * 1.4), int(y * 1.6))
+    gray_stone(a, surf, int(x * 1.6), int(y * 1.6))
 
 '''
 time = 4000

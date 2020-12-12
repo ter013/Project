@@ -4,7 +4,7 @@ from Graphic_objects import *
 from Time_manager import *
 
 Field_size = 10
-CELL_SIZE = 60
+CELL_SIZE = 70
 LEFT=300
 TOP=70
 FPS=30
@@ -63,6 +63,7 @@ while running and Clocks.time>=0 and Play_window.field.score<Finish_score:
                 pause=True
 
     if not Play_window.comatose and score and Play_window.field.score-score>=5:
+        Clocks.time = min(Clocks.time+600,Clocks.time_start)
         wow_sound.play()
 
     if score and not Play_window.comatose:
@@ -90,7 +91,7 @@ while running and Clocks.time>=0 and Play_window.field.score<Finish_score:
             draw_pause(screen, WIDTH+2*LEFT, HEIGHT+2*TOP)
     if not pause:
         Clocks.time-=60/FPS
-        all_draw(all_sprites,screen,Play_window,[rulls_button,pause_button],pause,Clocks)
+        all_draw(all_sprites,screen,Play_window,[rulls_button,pause_button],pause,Clocks,Finish_score)
 
     pygame.display.flip()
     Clocks.clock.tick(FPS)
