@@ -222,11 +222,11 @@ def draw_background(surf, WIDTH, HEIGHT, size, CELL_SIZE,LEFT,TOP,pause=False):
     color1=DARKGREY
     color2=DIMGREY
     if WIDTH>HEIGHT:
-        draw_pole(surf, WIDTH//CELL_SIZE*2, 2*CELL_SIZE, color1, color2, 0, HEIGHT - WIDTH, 60)
+        draw_pole(surf, WIDTH//CELL_SIZE*2, 2*CELL_SIZE, color1, color2, 0, HEIGHT - WIDTH, CELL_SIZE)
     else:
-        draw_pole(surf, HEIGHT // CELL_SIZE*2, 2 * CELL_SIZE, color1, color2, 0, WIDTH-HEIGHT, 50)
+        draw_pole(surf, HEIGHT // CELL_SIZE*2, 2 * CELL_SIZE, color1, color2, 0, WIDTH-HEIGHT, 5*CELL_SIZE/6)
     if not pause:
-        draw_pole(surf, size, CELL_SIZE, RED, DARKGREY, LEFT, TOP, 30)
+        draw_pole(surf, size, CELL_SIZE, RED, DARKGREY, LEFT, TOP, CELL_SIZE//2)
 
 def all_draw(all_sprites,screen,Play_window,bottons,pause,Clocks):
     #отрисовка
