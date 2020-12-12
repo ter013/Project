@@ -26,7 +26,7 @@ class Window_0(pygame.sprite.Sprite):
         
 
 class button(pygame.sprite.Sprite):
-    def __init__(self, width, height, left, top):
+    def __init__(self, width, height, left, top, text):
         "Cздание кнопки правил"
 
         self.width=width
@@ -39,12 +39,12 @@ class button(pygame.sprite.Sprite):
         self.rect.left = left
         self.rect.top = top
 
+        self.text=text
+
     def draw(self,pause):
         self.image.fill(DIMGREY)
-        if pause:
-            draw_text(self.image,"BACK",int(self.height*0.7),0*self.width//2,0*self.height//2)
-        else:
-            draw_text(self.image, "RULES", int(self.height*0.7),0*self.width//2,0*self.height//2)
+        if not pause:
+            draw_text(self.image, self.text, int(self.height*0.7),0*self.width//2,0*self.height//2)
 
     def update(self, event=0):
         if not event:
@@ -228,10 +228,11 @@ def draw_background(surf, WIDTH, HEIGHT, size, CELL_SIZE,LEFT,TOP,pause=False):
     if not pause:
         draw_pole(surf, size, CELL_SIZE, RED, DARKGREY, LEFT, TOP, 30)
 
-def all_draw(all_sprites,screen,Play_window,rulls_botton,pause):
+def all_draw(all_sprites,screen,Play_window,bottons,pause):
     #отрисовка
     all_sprites.update()
-    rulls_botton.draw(pause)
+    for botton in bottons:
+        botton.draw(pause)
     Play_window.draw_score(screen)
     Play_window.draw_field()
     Play_window.fall()

@@ -18,8 +18,10 @@ clock = pygame.time.Clock()
 
 all_sprites = pygame.sprite.Group()
 Play_window = Window(Field_size, Field_size, CELL_SIZE, LEFT, TOP)
-rulls_button = button(LEFT//2,TOP , LEFT+WIDTH+LEFT/4, TOP+HEIGHT-TOP//2)
+rulls_button = button(LEFT//2,TOP , LEFT+WIDTH+LEFT/4, TOP+HEIGHT-TOP//2, "RULES")
+pause_button = button(LEFT//2,TOP ,LEFT+WIDTH+LEFT/4, TOP-TOP//2, "PAUSE")
 all_sprites.add(rulls_button)
+all_sprites.add(pause_button)
 all_sprites.add(Play_window)
 
 pygame.mixer.music.play(loops=-1)
@@ -29,7 +31,7 @@ flag1=True
 flag2=True
 flag3=True
 pause=False
-
+rules=False
 
 while running:
 
@@ -44,19 +46,27 @@ while running:
                 all_sprites.update(event)
             else:
                 pause=False
+                rules=True
             if rulls_button.update(event):
+                pause=True
+                rules=True
+            if pause_button.update(event):
                 pause=True
 
     if not Play_window.comatose and score and Play_window.field.score-score>=5:
         wow_sound.play()
+
     if score and not Play_window.comatose:
         score=0
+
     if Play_window.field.score>=50 and flag1:
         sound_1.play()
         flag1=False
+
     if Play_window.field.score>=100 and flag2:
         sound_2.play()
         flag2=False
+
     if Play_window.field.score>=500 and flag3:
         sound_3.play()
         flag3=False
@@ -65,9 +75,12 @@ while running:
     draw_background(screen, WIDTH, HEIGHT, Field_size, CELL_SIZE, LEFT, TOP, pause)
     if pause:
         rulls_button.draw(pause)
-        draw_rules(screen, WIDTH+2*LEFT, HEIGHT+2*TOP)
+        if rules:
+            draw_rules(screen, WIDTH+2*LEFT, HEIGHT+2*TOP)
+        else:
+            draw_text(screen, "PAUSE",HEIGHT//2,WIDTH//4,HEIGHT//4,False)
     if not pause:
-        all_draw(all_sprites,screen,Play_window,rulls_button,pause)
+        all_draw(all_sprites,screen,Play_window,[rulls_button,pause_button],pause)
 
     pygame.display.flip()
     clock.tick(FPS)
