@@ -8,6 +8,8 @@ CELL_SIZE = 60
 LEFT=300
 TOP=70
 FPS=30
+Game_time=60
+Finish_score=50
 
 WIDTH = CELL_SIZE * Field_size
 HEIGHT = CELL_SIZE * Field_size
@@ -21,7 +23,7 @@ all_sprites = pygame.sprite.Group()
 Play_window = Window(Field_size, Field_size, CELL_SIZE, LEFT, TOP)
 rulls_button = button(LEFT//2,TOP , LEFT+WIDTH+LEFT/4, TOP+HEIGHT-TOP//2, "RULES")
 pause_button = button(LEFT//2,TOP ,LEFT+WIDTH+LEFT/4, TOP-TOP//2, "PAUSE")
-Clocks=Сhronometer(3*LEFT//4,3*LEFT//4,TOP//4,HEIGHT-3*TOP//2,600)
+Clocks=Сhronometer(3*LEFT//4,3*LEFT//4,TOP//4,HEIGHT-3*TOP//2,60*Game_time)
 
 all_sprites.add(rulls_button)
 all_sprites.add(pause_button)
@@ -36,8 +38,9 @@ flag2=True
 flag3=True
 pause=False
 rules=False
+end=True
 
-while running:
+while running and Clocks.time>=0 and Play_window.field.score<Finish_score:
 
     if Play_window.comatose and not score:
         score=Play_window.field.score
@@ -45,6 +48,8 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+            end=False
+
         if event.type == pygame.MOUSEBUTTONUP:
             if not pause:
                 all_sprites.update(event)
@@ -87,5 +92,17 @@ while running:
         Clocks.time-=60/FPS
         all_draw(all_sprites,screen,Play_window,[rulls_button,pause_button],pause,Clocks)
 
+    pygame.display.flip()
+    Clocks.clock.tick(FPS)
+
+
+while end:
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            end = False
+
+    draw_background(screen, WIDTH, HEIGHT, Field_size, CELL_SIZE, LEFT, TOP, True)
+    draw_finish(screen, WIDTH+2*LEFT, HEIGHT+2*TOP, Play_window.field.score>=Finish_score)
     pygame.display.flip()
     Clocks.clock.tick(FPS)

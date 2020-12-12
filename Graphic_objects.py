@@ -265,3 +265,9 @@ def draw_rules(surf, WIDTH, HEIGHT):
 def draw_pause(surf, WIDTH, HEIGHT):
     draw_text(surf, "PAUSE", HEIGHT // 2, WIDTH // 2, HEIGHT // 4, True)
     draw_text(surf, "Для продолжения кликните мышкой", HEIGHT//10,WIDTH//2, HEIGHT//4*3,True )
+
+def draw_finish(surf, WIDTH, HEIGHT, victory):
+    if victory:
+        draw_text(surf, "VICTORY!!!", HEIGHT // 4, WIDTH // 2, HEIGHT // 4, True)
+    else:
+        draw_text(surf, "GAME OVER:(", HEIGHT // 4, WIDTH // 2, HEIGHT // 4, True)
