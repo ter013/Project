@@ -228,7 +228,7 @@ def draw_background(surf, WIDTH, HEIGHT, size, CELL_SIZE,LEFT,TOP,pause=False):
     if not pause:
         draw_pole(surf, size, CELL_SIZE, RED, DARKGREY, LEFT, TOP, 30)
 
-def all_draw(all_sprites,screen,Play_window,bottons,pause):
+def all_draw(all_sprites,screen,Play_window,bottons,pause,Clocks):
     #отрисовка
     all_sprites.update()
     for botton in bottons:
@@ -237,6 +237,7 @@ def all_draw(all_sprites,screen,Play_window,bottons,pause):
     Play_window.draw_field()
     Play_window.fall()
     all_sprites.draw(screen)
+    Clocks.draw(screen)
     #pygame.display.flip()
 
 def draw_rules(surf, WIDTH, HEIGHT):

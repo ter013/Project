@@ -1,6 +1,7 @@
 #основная программа
 import pygame
 from Graphic_objects import *
+from Time_manager import *
 
 Field_size = 10
 CELL_SIZE = 65
@@ -20,9 +21,12 @@ all_sprites = pygame.sprite.Group()
 Play_window = Window(Field_size, Field_size, CELL_SIZE, LEFT, TOP)
 rulls_button = button(LEFT//2,TOP , LEFT+WIDTH+LEFT/4, TOP+HEIGHT-TOP//2, "RULES")
 pause_button = button(LEFT//2,TOP ,LEFT+WIDTH+LEFT/4, TOP-TOP//2, "PAUSE")
+Clocks=Сhronometer(200,200,0,100)
+
 all_sprites.add(rulls_button)
 all_sprites.add(pause_button)
 all_sprites.add(Play_window)
+
 
 pygame.mixer.music.play(loops=-1)
 running = True
@@ -80,7 +84,8 @@ while running:
         else:
             draw_pause(screen, WIDTH+2*LEFT, HEIGHT+2*TOP)
     if not pause:
-        all_draw(all_sprites,screen,Play_window,[rulls_button,pause_button],pause)
+        Clocks.time-=600/FPS
+        all_draw(all_sprites,screen,Play_window,[rulls_button,pause_button],pause,Clocks)
 
     pygame.display.flip()
-    clock.tick(FPS)
+    Clocks.clock.tick(FPS)

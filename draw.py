@@ -10,8 +10,8 @@ font = pygame.font.Font('freesansbold.ttf', 14)
 
 from Colors import *
 
-FPS = 30
-'''screen = pygame.display.set_mode((800, 600))
+'''FPS = 30
+screen = pygame.display.set_mode((800, 600))
 screen.fill(WHITE)'''
 
 
@@ -1758,7 +1758,7 @@ def almaz_animation(surf, x, y, a):
     for i in range(0, p, 1):
         pygame.draw.circle(surf, WHITE, (list_x[i], list_y[i]), 2)
 
-def watch(surf, x, y, a, time, time_0):
+def draw_watch(surf, x, y, a, time, time_0):
     '''
     функция отвечает за работу часов
     :param surf: поверхность, на которой отображаются часы
@@ -1904,8 +1904,9 @@ def watch(surf, x, y, a, time, time_0):
         textRect = text.get_rect()
         place = text.get_rect(center=(int(x - 0.75 * a * math.sin(2 * math.pi / 12 * i)),
                                       int(y - 0.75 * a * math.cos(2 * math.pi / 12 * i))))
-        screen.blit(text, place)
-clock = pygame.time.Clock()
+        surf.blit(text, place)
+
+#clock = pygame.time.Clock()
 finished = False
 
 t = 0
@@ -1954,10 +1955,10 @@ def beautiful_draw(surf,x ,y, a, color, cristall=False, rainbow=0, bonus=0):
     if bonus==2:
        draw_bonus_cross(surf,x_cristall,y_cristall,a//2)
 
-
+'''
 time = 4000
 time_0 = 4000
-'''while not finished:
+while not finished:
 
     clock.tick(FPS)
     draw_pole(screen, 4, 50, CADETBLUE, DIMGREY, 250, 100, 16)
@@ -1986,7 +1987,7 @@ time_0 = 4000
 
     t += 1
     time -= 5
-    watch(screen, 100, 400, 100, time, time_0)
+    draw_watch(screen, 100, 400, 100, time, time_0)
     if t%15 == 0:
         n = randint(0, 6)
     multi_chip(100, screen, 0.4, 500, 500, n, 0)
@@ -1996,5 +1997,5 @@ time_0 = 4000
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             finished = True
-    pygame.display.update()'''
-pygame.quit()
+    pygame.display.update()
+pygame.quit()'''
