@@ -260,6 +260,7 @@ def draw_rules(surf, WIDTH, HEIGHT):
     draw_text(surf, "Фишки с молниями уничтожают линии крестом.(свою строку и столбец)", int(size*0.8), left, 12*size)
     beautiful_draw(surf, left * 16, size * 11, size * 3, PURPLE, False, False, 2)
     draw_text(surf, "Звезда имеет одновременно все цвета", int(size*0.8), left, 15*size)
+    draw_text(surf, "Регулировка музыки на стрелочки 'UP' и ''DOWN", int(size*0.8), left , 17*size)
     beautiful_draw(surf, left * 9, size * 14, size * 3, RED, False, True)
     draw_text(surf, "Пpиятной игры!", int(size*0.8), left, 18*size)
 

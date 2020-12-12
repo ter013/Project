@@ -21,5 +21,7 @@ cross_sound=pygame.mixer.Sound(path.join(snd_dir, 'blue.wav'))
 #музыка
 pygame.mixer.music.load(path.join(snd_dir, 'regression_cyclone_0.ogg'))
 #pygame.mixer.music.load(path.join(snd_dir, 'Music.mp3'))
+pygame.mixer.music.load(path.join(snd_dir, 'musci.mp3'))
 
-pygame.mixer.music.set_volume(0.3)
+volume = 0.8
+pygame.mixer.music.set_volume(volume)

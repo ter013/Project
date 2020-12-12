@@ -2,6 +2,7 @@
 import pygame
 from Graphic_objects import *
 from Time_manager import *
+from sounds import *
 
 Field_size = 10
 CELL_SIZE = 70
@@ -61,6 +62,16 @@ while running and Clocks.time>=0 and Play_window.field.score<Finish_score:
                 rules=True
             if pause_button.update(event):
                 pause=True
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_UP:
+                volume += 0.1
+                pygame.mixer.music.set_volume(volume)
+
+            if event.key == pygame.K_DOWN:
+                volume += -0.1
+                pygame.mixer.music.set_volume(volume)
+
+                
 
     if not Play_window.comatose and score and Play_window.field.score-score>=5:
         Clocks.time = min(Clocks.time+600,Clocks.time_start)
@@ -98,6 +109,7 @@ while running and Clocks.time>=0 and Play_window.field.score<Finish_score:
 
 
 while end:
+    keystate = pygame.key.get_pressed()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
