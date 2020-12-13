@@ -13,3 +13,16 @@ Physical objects - модуль с параметрами действий
 pravila - модуль с картинками
 move - обработка мыши и перемещения
 main - основной модуль
+
+# Геймплей
+Так выглядит начало игры.
+
+![init](https://github.com/ter013/Project/blob/master/screenshotes/начало%20игры.jpg)
+
+Взрыв динамита.
+
+![init](https://github.com/ter013/Project/blob/master/screenshotes/эффект%20динамита.jpg)
+
+Эффект молнии.
+
+![init](https://github.com/ter013/Project/blob/master/screenshotes/эффект%20молнии.jpg)
