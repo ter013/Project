@@ -29,7 +29,7 @@ class Ball:
             self.cristall=self.cristall and not self.rainbow
 
     def draw(self, screen):
-        "Рисуем шарик"
+        "Рисуем фишку"
         if not self.live:
             return
         beautiful_draw(screen, self.x-self.r, self.y-self.r, 2*self.r, self.color,
@@ -37,6 +37,7 @@ class Ball:
 
 
 class wave:
+    "Вспомогательный класс для волнового алгоритма"
     def __init__(self,x,y):
         self.x=x
         self.y=y
@@ -128,7 +129,7 @@ class Field:
         if self.massive[x0][y0].rainbow:
             return self.kill_the_rainbow(x0,y0)
 
-
+        "первый проход по линиям одного цвета"
         for v in vol:
             for g in go:
                 if (self.massive[v.x+g.x][v.y+g.y].color==current_color or self.massive[v.x+g.x][v.y+g.y].rainbow) \
@@ -136,6 +137,7 @@ class Field:
                     vol+=[wave(v.x+g.x,v.y+g.y)]
                     self.massive[v.x + g.x][v.y + g.y].live=False
 
+        "уничтожение фишек"
         if len(vol)>=3:
             for v in vol:
                 self.kill(v.x,v.y)

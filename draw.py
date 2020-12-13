@@ -1966,6 +1966,7 @@ def stone_heap(surf, x, y, a):
 
 
 if __name__=='__main__':
+    "Тестирование корректного рисования графических объектов"
     FPS = 30
     screen = pygame.display.set_mode((800, 600))
     screen.fill(WHITE)

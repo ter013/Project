@@ -2,32 +2,13 @@ from Physical_objects import *
 from Colors import *
 from draw import *
 from sounds import *
-#from pravila import*
 
 clock = pygame.time.Clock()
 
-class Window_0(pygame.sprite.Sprite):
-    def __init__(self):
-        WIDTH = CELL_SIZE * Field_size
-        HEIGHT = CELL_SIZE * Field_size
-
-        self.width=WIDTH
-        self.height=HEIGHT
-
-        pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.transform.scale(player_img, (700, 700))
-        self.image.fill(WHITE)
-        self.rect = self.image.get_rect()
-        self.rect.left = left
-        self.rect.top = top
-
-    def update(self):
-        pass
-        
 
 class button(pygame.sprite.Sprite):
     def __init__(self, width, height, left, top, text):
-        "Cздание кнопки правил"
+        "Cздание кнопки"
 
         self.width=width
         self.height=height
@@ -42,11 +23,13 @@ class button(pygame.sprite.Sprite):
         self.text=text
 
     def draw(self,pause):
+        "Отрисовка кнопки"
         self.image.fill(DIMGREY)
         if not pause:
             draw_text(self.image, self.text, int(self.height*0.7),0*self.width//2,0*self.height//2)
 
     def update(self, event=0):
+        "Обработка тычка мыши"
         if not event:
             return False
         if event.type==pygame.MOUSEBUTTONUP:
@@ -60,7 +43,7 @@ class button(pygame.sprite.Sprite):
 
 class Window(pygame.sprite.Sprite):
     def __init__(self, size, Field_size, CELL_SIZE, left, top):
-        "Cздание игрового поля"
+        "Cоздание игрового поля"
         WIDTH = CELL_SIZE * Field_size
         HEIGHT = CELL_SIZE * Field_size
 
@@ -130,13 +113,12 @@ class Window(pygame.sprite.Sprite):
 
         self.field.swap(coords1,coords2)
 
-        #move_sound.play()
         self.draw_chip(coords1)
         self.draw_chip(coords2)
 
 
     def draw_score(self,screen,Finish_score):
-        # очки за выполнения действия
+        #Вывести счет на экран
         stone_heap(screen,self.rect.left//4, self.rect.top,self.cell )
         draw_text(screen, str(self.field.score)+'/'+str(Finish_score), self.rect.left//8, self.rect.left//2, self.rect.top,)
 
@@ -161,10 +143,12 @@ class Window(pygame.sprite.Sprite):
     def update (self, event=0):
         #Обработка тычка мыши
 
+        "Игнорируем тычок во время падения фишек"
         if self.comatose or event==0:
             return
         self.touch_number+=1
 
+        "Обработка второго по счету тычка"
         if self.touch_number==2:
             self.touch_number=0
 
@@ -173,6 +157,7 @@ class Window(pygame.sprite.Sprite):
             self.fill_square(coords1, WHITE)
             self.touch_square=(-1,-1)
 
+            "Если тычок совершен в соседнюю клетку с первым"
             if abs(coords1[0]-coords2[0])+abs(coords1[1]-coords2[1])==1:
                 self.swap(coords1, coords2)
                 f1=f2=False
@@ -192,7 +177,7 @@ class Window(pygame.sprite.Sprite):
                 self.draw_chip(coords1)
 
         else:
-
+            "Обработка первого тычка мыши"
             self.touch_square=self.search_the_square(event)
             if self.touch_square==None:
                 self.touch_square=(-1,-1)
@@ -208,7 +193,7 @@ class Window(pygame.sprite.Sprite):
 
 font_name = pygame.font.match_font('arial')
 def draw_text(surf, text, size, x1, y1, midtop=False):
-    #текст
+    "написать текст"
     font = pygame.font.Font(font_name, size)
     text_surface = font.render(text, True, BLACK)
     text_rect = text_surface.get_rect()
@@ -219,7 +204,9 @@ def draw_text(surf, text, size, x1, y1, midtop=False):
         text_rect.top = y1
     surf.blit(text_surface, text_rect)
 
+
 def draw_background(surf, WIDTH, HEIGHT, size, CELL_SIZE,LEFT,TOP,pause=False):
+    "Отрисовать фон"
     color1=DARKGREY
     color2=DIMGREY
     if WIDTH>HEIGHT:
@@ -229,8 +216,9 @@ def draw_background(surf, WIDTH, HEIGHT, size, CELL_SIZE,LEFT,TOP,pause=False):
     if not pause:
         draw_pole(surf, size, CELL_SIZE, RED, DARKGREY, LEFT, TOP, CELL_SIZE//2)
 
+
 def all_draw(all_sprites,screen,Play_window,bottons,pause,Clocks,Finish_score):
-    #отрисовка
+    "отрисовка всех графических объектов"
     all_sprites.update()
     for botton in bottons:
         botton.draw(pause)
@@ -239,9 +227,10 @@ def all_draw(all_sprites,screen,Play_window,bottons,pause,Clocks,Finish_score):
     Play_window.fall()
     all_sprites.draw(screen)
     Clocks.draw(screen)
-    #pygame.display.flip()
+
 
 def draw_rules(surf, WIDTH, HEIGHT):
+    "Отрисовка правил игры"
     size=HEIGHT//20
     left=WIDTH//20
     draw_text(surf, "ПРАВИЛА", size, left*10, 0, True)
@@ -265,11 +254,15 @@ def draw_rules(surf, WIDTH, HEIGHT):
     beautiful_draw(surf, left * 9, size * 14, size * 3, RED, False, True)
     draw_text(surf, "Пpиятной игры!", int(size*0.8), left, 18*size)
 
+
 def draw_pause(surf, WIDTH, HEIGHT):
+    "Отрисовка окна паузы"
     draw_text(surf, "PAUSE", HEIGHT // 2, WIDTH // 2, HEIGHT // 4, True)
     draw_text(surf, "Для продолжения кликните мышкой", HEIGHT//10,WIDTH//2, HEIGHT//4*3,True )
 
+
 def draw_finish(surf, WIDTH, HEIGHT, victory):
+    "Отрисовка конечного экрана"
     if victory:
         draw_text(surf, "VICTORY!!!", HEIGHT // 4, WIDTH // 2, HEIGHT // 4, True)
     else:

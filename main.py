@@ -4,6 +4,7 @@ from Graphic_objects import *
 from Time_manager import *
 from sounds import *
 
+"Характеристики поля"
 Field_size = 10
 CELL_SIZE = 70
 LEFT=300
@@ -20,6 +21,7 @@ screen = pygame.display.set_mode((WIDTH+LEFT*2, HEIGHT+TOP*2))
 screen.fill(WHITE)
 clock = pygame.time.Clock()
 
+"Инициализация спрайтов"
 all_sprites = pygame.sprite.Group()
 Play_window = Window(Field_size, Field_size, CELL_SIZE, LEFT, TOP)
 rulls_button = button(LEFT//2,TOP , LEFT+WIDTH+LEFT/4, TOP+HEIGHT-TOP//2, "RULES")
@@ -32,6 +34,7 @@ all_sprites.add(Play_window)
 
 
 pygame.mixer.music.play(loops=-1)
+"Набор логических переменных отвечающих за стадию игры, паузу, появление правил на экране и конец игры соответственно"
 running = True
 score=0
 flag1=True
@@ -43,6 +46,7 @@ end=True
 
 while running and Clocks.time>=0 and Play_window.field.score<Finish_score:
 
+    "Запоминаем, сколько у нас сейчас очков(нужно для комбо)"
     if Play_window.comatose and not score:
         score=Play_window.field.score
 
@@ -50,7 +54,7 @@ while running and Clocks.time>=0 and Play_window.field.score<Finish_score:
         if event.type == pygame.QUIT:
             running = False
             end=False
-
+        "Обработка тычка мыши"
         if event.type == pygame.MOUSEBUTTONUP:
             if not pause:
                 all_sprites.update(event)
@@ -62,6 +66,7 @@ while running and Clocks.time>=0 and Play_window.field.score<Finish_score:
                 rules=True
             if pause_button.update(event):
                 pause=True
+        "Изменение громкости"
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
                 volume += 0.1
@@ -71,8 +76,7 @@ while running and Clocks.time>=0 and Play_window.field.score<Finish_score:
                 volume += -0.1
                 pygame.mixer.music.set_volume(volume)
 
-                
-
+    "Если за один раз набрано 5 и более очков, получается комбо"
     if not Play_window.comatose and score and Play_window.field.score-score>=5:
         Clocks.time = min(Clocks.time+600,Clocks.time_start)
         wow_sound.play()
@@ -80,6 +84,7 @@ while running and Clocks.time>=0 and Play_window.field.score<Finish_score:
     if score and not Play_window.comatose:
         score=0
 
+    "Звуковое сопровождение различных стадий игры"
     if Play_window.field.score>=50 and flag1:
         sound_1.play()
         flag1=False
@@ -92,6 +97,7 @@ while running and Clocks.time>=0 and Play_window.field.score<Finish_score:
         sound_3.play()
         flag3=False
 
+    "Обновление изображения на экране"
     screen.fill(WHITE)
     draw_background(screen, WIDTH, HEIGHT, Field_size, CELL_SIZE, LEFT, TOP, pause)
     if pause:
@@ -107,7 +113,7 @@ while running and Clocks.time>=0 and Play_window.field.score<Finish_score:
     pygame.display.flip()
     Clocks.clock.tick(FPS)
 
-
+"конец игры"
 while end:
     keystate = pygame.key.get_pressed()
 
