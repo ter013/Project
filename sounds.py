@@ -1,6 +1,6 @@
 from os import path
 import pygame
-
+#Звуковой модуль
 
 snd_dir = path.join(path.dirname(__file__),'snd')
 
