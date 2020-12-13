@@ -10,10 +10,6 @@ font = pygame.font.Font('freesansbold.ttf', 14)
 
 from Colors import *
 
-'''FPS = 30
-screen = pygame.display.set_mode((800, 600))
-screen.fill(WHITE)'''
-
 
 def draw1(a, color1, color2, n, surface, k, alpha):
     '''
@@ -1915,13 +1911,6 @@ def draw_watch(surf, x, y, a, time, time_0):
         surf.blit(text, place)
 
 
-# clock = pygame.time.Clock()
-finished = False
-
-t = 0
-n = 0
-
-
 def beautiful_draw(surf, x, y, a, color, cristall=False, rainbow=0, bonus=0):
     k = 0.4
     a_cristall = int(k * a / 3 * math.sqrt(2))
@@ -1975,47 +1964,56 @@ def stone_heap(surf, x, y, a):
     purple_stone(a, surf, int(x * 1.4), int(y * 1.6))
     gray_stone(a, surf, int(x * 1.6), int(y * 1.6))
 
-'''
-time = 4000
-time_0 = 4000
-while not finished:
 
-    clock.tick(FPS)
-    draw_pole(screen, 4, 50, CADETBLUE, DIMGREY, 250, 100, 16)
+if __name__=='__main__':
+    FPS = 30
+    screen = pygame.display.set_mode((800, 600))
+    screen.fill(WHITE)
+    clock = pygame.time.Clock()
+    finished = False
 
-    gray_chip(100, screen, 0.4, 290, 270)
-    gray_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 340, 320)
+    t = 0
+    n = 0
+    time = 4000
+    time_0 = 4000
+    while not finished:
 
-    orange_chip(100, screen, 0.4, 100, 100)
-    orange_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 150, 150)
-    draw_bonus_dynamite(screen, 150, 150, 100)
+        clock.tick(FPS)
+        draw_pole(screen, 4, 50, CADETBLUE, DIMGREY, 250, 100, 16)
 
-    draw_bonus_cross(screen, 300, 240, 50)
+        gray_chip(100, screen, 0.4, 290, 270)
+        gray_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 340, 320)
 
-    blue_chip(100, screen, 0.4, 650, 300)
-    blue_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 700, 350)
-    draw_bonus_dynamite(screen, 700, 350, 100)
+        orange_chip(100, screen, 0.4, 100, 100)
+        orange_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 150, 150)
+        draw_bonus_dynamite(screen, 150, 150, 100)
 
-    green_chip(100, screen, 0.4, 200, 300)
-    green_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 250, 350)
+        draw_bonus_cross(screen, 300, 240, 50)
 
-    yellow_chip(100, screen, 0.4, 600, 100)
-    yellow_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 650, 150)
+        blue_chip(100, screen, 0.4, 650, 300)
+        blue_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 700, 350)
+        draw_bonus_dynamite(screen, 700, 350, 100)
 
-    purple_chip(100, screen, 0.4, 100, 200)
-    purple_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 150, 250)
+        green_chip(100, screen, 0.4, 200, 300)
+        green_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 250, 350)
 
-    t += 1
-    time -= 5
-    draw_watch(screen, 100, 400, 100, time, time_0)
-    if t%15 == 0:
-        n = randint(0, 6)
-    multi_chip(100, screen, 0.4, 500, 500, n, 0)
+        yellow_chip(100, screen, 0.4, 600, 100)
+        yellow_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 650, 150)
 
-    red_chip(100, screen, 0.4, 500, 400)
-    red_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 550, 450)
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            finished = True
-    pygame.display.update()
-pygame.quit()'''
+        purple_chip(100, screen, 0.4, 100, 200)
+        purple_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 150, 250)
+
+        t += 1
+        time -= 5
+        draw_watch(screen, 100, 400, 100, time, time_0)
+        if t%15 == 0:
+            n = randint(0, 6)
+        multi_chip(100, screen, 0.4, 500, 500, n, 0)
+
+        red_chip(100, screen, 0.4, 500, 400)
+        red_stone(int(0.4 * 100 / 3 * math.sqrt(2)), screen, 550, 450)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                finished = True
+        pygame.display.update()
+    pygame.quit()
