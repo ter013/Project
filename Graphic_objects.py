@@ -246,7 +246,8 @@ def draw_rules(surf, WIDTH, HEIGHT):
     left=WIDTH//20
     draw_text(surf, "ПРАВИЛА", size, left*10, 0, True)
     draw_text(surf,"Передвигайте фишки, чтобы собрать линию",int(size*0.8),left,size)
-    draw_text(surf, "из фишек одного цвета.(необязательно прямую)",int(size * 0.8), left,3 * size)
+    draw_text(surf, "из фишек одного цвета (необязательно прямую)",int(size * 0.8), left,2 * size)
+    draw_text(surf, "Комбо из 5 кристаллов продливает время", int(size * 0.8), left, 3*size)
     beautiful_draw(surf, left * 11, size * 3, size * 2, GREEN, False)
     beautiful_draw(surf, left * 12, size * 3, size * 2, GREEN, True)
     beautiful_draw(surf, left * 12, size * 3-left, size * 2, GREEN, False)
@@ -260,7 +261,7 @@ def draw_rules(surf, WIDTH, HEIGHT):
     draw_text(surf, "Фишки с молниями уничтожают линии крестом.(свою строку и столбец)", int(size*0.8), left, 12*size)
     beautiful_draw(surf, left * 16, size * 11, size * 3, PURPLE, False, False, 2)
     draw_text(surf, "Звезда имеет одновременно все цвета", int(size*0.8), left, 15*size)
-    draw_text(surf, "Регулировка музыки на стрелочки 'UP' и ''DOWN", int(size*0.8), left , 17*size)
+    draw_text(surf, "Регулировка громкости музыки на стрелочки 'UP' и ''DOWN", int(size*0.8), left , 17*size)
     beautiful_draw(surf, left * 9, size * 14, size * 3, RED, False, True)
     draw_text(surf, "Пpиятной игры!", int(size*0.8), left, 18*size)
 
@@ -272,4 +273,4 @@ def draw_finish(surf, WIDTH, HEIGHT, victory):
     if victory:
         draw_text(surf, "VICTORY!!!", HEIGHT // 4, WIDTH // 2, HEIGHT // 4, True)
     else:
-        draw_text(surf, "GAME OVER:(", HEIGHT // 4, WIDTH // 2, HEIGHT // 4, True)
+        draw_text(surf, "GAME OVER :(", HEIGHT // 4, WIDTH // 2, HEIGHT // 4, True)
